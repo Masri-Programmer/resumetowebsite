@@ -1,0 +1,8 @@
+{
+    "greeting": "Hallo, Welt!",
+    "resume": {
+        "importTitle": "Bestehenden Lebenslauf importieren",
+        "importDescription": "Laden Sie eine Datei hoch, um vorhandene Daten zu analysieren.",
+        "validateButton": "Validieren"
+    }
+}

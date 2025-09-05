@@ -1,0 +1,9 @@
+{
+    "greeting": "Hello, world!",
+    "resume": {
+        "importTitle": "Import an existing resume",
+        "importDescription": "Upload a file from one of the accepted sources to parse existing data and import it into Reactive Resume for easier editing.",
+        "validateButton": "Validate",
+        "cancel": "cancel"
+    }
+}
