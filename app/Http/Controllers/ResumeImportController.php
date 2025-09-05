@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\PdfToText\Pdf;
 
@@ -15,39 +16,53 @@ class ResumeImportController extends Controller
         ]);
 
         $file = $request->file('resumeFile');
-        $extension = $file->getClientOriginalExtension();
+        $extension = strtolower($file->getClientOriginalExtension());
         $parsedData = null;
 
         try {
-            switch (strtolower($extension)) {
+            switch ($extension) {
                 case 'pdf':
-                    // You might need to provide the path to pdftotext binary
-                    // See spatie/pdf-to-text documentation
-                    $parsedData = Pdf::getText($file->getRealPath());
+                        $parsedData = (new Pdf())
+                        ->setPdf($file->getRealPath())
+                        ->text();
                     break;
 
                 case 'json':
                     $content = $file->get();
                     $parsedData = json_decode($content, true);
+                    // For display purposes, let's re-encode it as a formatted string.
+                    if (is_array($parsedData)) {
+                        $parsedData = json_encode($parsedData, JSON_PRETTY_PRINT);
+                    }
                     break;
-                
-                // Note: Parsing .doc and .docx is more complex and requires
-                // libraries like PHPOffice/PHPWord.
+
                 case 'docx':
-                    // Placeholder for docx parsing logic
-                    // $parsedData = $this->parseDocx($file);
+                    // Placeholder for a real docx parsing library like PhpOffice/PHPWord
                     $parsedData = "DOCX parsing is not yet implemented.";
                     break;
 
                 default:
-                    // Handle unsupported file types
                     return Redirect::back()->withErrors(['resumeFile' => 'Unsupported file type.']);
             }
+
+            // A quick way to debug: uncomment the line below to stop execution
+            // and see if $parsedData contains the text from the PDF.
+            
+            if (empty($parsedData)) {
+                return Redirect::back()->withErrors(['resumeFile' => 'The file was processed, but no content could be extracted. It might be empty or corrupt.']);
+            }
         } catch (\Exception $e) {
-            // Handle any parsing errors
-            return Redirect::back()->withErrors(['resumeFile' => 'Could not parse the uploaded file. Error: ' . $e->getMessage()]);
+            // Log the actual error for debugging purposes
+            Log::error('File parsing failed: ' . $e->getMessage());
+            
+            // Provide a user-friendly error
+            return Redirect::back()->withErrors(['resumeFile' => 'Could not parse the uploaded file. Please ensure it is a valid document and that the server has parsing tools installed.']);
         }
-        
-        return Redirect::back()->with('success', 'Resume imported successfully!')->with('parsed_data', $parsedData);
+
+        // dd($parsedData);
+        // Flashing data to the session works, but be mindful of session size limits with large files.
+        return Redirect::route('dashboard') // Or wherever you redirect to
+            ->with('success', 'Resume imported successfully!')
+            ->with('parsed_data', $parsedData);
     }
 }
