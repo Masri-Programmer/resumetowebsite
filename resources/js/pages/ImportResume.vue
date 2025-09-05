@@ -23,6 +23,7 @@ const submit = () => {
     form.post('/resume/import', {
         preserveScroll: true,
         onSuccess: () => {
+            toast.success(t('resume.importSuccess'));
             isDialogOpen.value = false;
             form.reset();
         },

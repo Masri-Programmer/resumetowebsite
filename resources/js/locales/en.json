@@ -7,6 +7,8 @@
         "fileLabel": "File",
         "validateButton": "Validate",
         "validating": "Validating...",
-        "cancel": "cancel"
+        "cancel": "cancel",
+        "importSuccess": "Resume imported and analyzed successfully!"
+        
     }
 }

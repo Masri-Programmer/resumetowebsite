@@ -3,14 +3,15 @@ import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { toUrl, urlIsActive } from '@/lib/utils';
-import { appearance , language } from '@/routes';
+import { appearance  } from '@/routes';
+import { language } from '@/routes/settings';
 import { edit as editPassword } from '@/routes/password';
 import { edit } from '@/routes/profile';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 
 const sidebarNavItems: NavItem[] = [
-    {
+    { 
         title: 'Profile',
         href: edit(),
     },

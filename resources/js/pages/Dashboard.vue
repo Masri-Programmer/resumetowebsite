@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-// Import the new route helper
-import { dashboard, dashboardResume } from '@/routes';
+import { dashboard } from '@/routes';
+import { resume as dashboardResume } from '@/routes/dashboard';
 import { type BreadcrumbItem, type PageProps } from '@/types/index';
 import { Head, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import ImportResume from './ImportResume.vue';
 import ResumeForm from './ResumeForm.vue';
 
+// todo: Check Dark & Light
+// todo: Check Trans
+// todo: Cookies Policy
+// todo: Chat Session (Multi-Turn Conversations)
 const page = usePage<PageProps>();
 
-// Make breadcrumbs dynamic based on the current URL
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     const base = [{
         title: 'Dashboard',
@@ -40,12 +43,10 @@ const parsedData = computed(() => page.props.flash?.parsed_data);
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="relative w-full max-w-5xl">
                 <Transition name="slide-fade" mode="out-in">
-                    <!-- Show ImportResume only on the main dashboard page -->
                     <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2" v-if="page.url === dashboard().url" key="import-view">
                         <ImportResume />
                     </div>
 
-                    <!-- Show ResumeForm only on the resume page with the correct data -->
                     <ResumeForm
                         v-else-if="parsedData && successMessage && page.url === dashboardResume().url"
                         :successMessage="successMessage"
