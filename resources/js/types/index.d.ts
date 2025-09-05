@@ -34,4 +34,56 @@ export interface User {
     updated_at: string;
 }
 
+export interface ParsedData {
+    personalInfo?: {
+        firstName?: string;
+        lastName?: string;
+        email?: string;
+        mobile?: string;
+        website?: string;
+        location?: {
+            address?: string;
+            city?: string;
+            state?: string;
+            country?: string;
+            zipCode?: string;
+        };
+    };
+    socialLinks?: {
+        linkedin?: string;
+        github?: string;
+        [key: string]: any;
+    };
+    workExperience?: {
+        role?: string;
+        company?: string;
+        startDate?: string;
+        endDate?: string;
+        description?: string[];
+    }[];
+    education?: {
+        degree?: string;
+        institution?: string;
+        graduationDate?: string;
+    }[];
+    skills?: {
+        technical?: string[];
+        soft?: string[];
+        languages?: string[];
+    };
+    projects?: {
+        name?: string;
+        description?: string;
+        technologies?: string[];
+    }[];
+}
+
+export interface PageProps {
+    [key: string]: unknown;
+    flash?: {
+        success?: string;
+        parsed_data?: ParsedData;
+    };
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

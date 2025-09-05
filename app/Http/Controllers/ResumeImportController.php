@@ -7,8 +7,6 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\PdfToText\Pdf;
-use Gemini\Enums\ModelVariation;
-use Gemini\GeminiHelper;
 use Gemini;
 class ResumeImportController extends Controller
 {
@@ -65,7 +63,7 @@ class ResumeImportController extends Controller
             return Redirect::back()->withErrors(['resumeFile' => 'Could not parse or analyze the uploaded file. Please try again.']);
         }
 
-        return Redirect::back()
+        return Redirect::route('dashboard.resume')
             ->with('success', 'Resume imported and analyzed successfully!')
             ->with('parsed_data', $finalData);
     }
@@ -78,6 +76,164 @@ class ResumeImportController extends Controller
      */
     private function analyzeResumeWithGemini(string $resumeText): ?array
     {
+        return json_decode('{
+            "personalInfo": {
+              "firstName": "Mohamad",
+              "lastName": "Masri",
+              "email": "masri_mohamad@protonmail.com",
+              "telephone": null,
+              "mobile": null,
+              "website": "www.masri.blog",
+              "location": {
+                "address": null,
+                "city": "Oldenburg",
+                "state": null,
+                "country": "Germany",
+                "zipCode": null
+              }
+            },
+            "socialLinks": {
+              "linkedin": null,
+              "github": null,
+              "twitter": null,
+              "instagram": null,
+              "other": []
+            },
+            "workExperience": [
+              {
+                "role": "Softwareentwickler",
+                "company": "Meinders & Elstermann GmbH & Co. KG",
+                "startDate": "Apr 2024",
+                "endDate": "Present",
+                "description": [
+                  "Enterprise-Software-Entwicklung – Erstellung skalierbarer Lösungen für Unternehmenskunden mit Vue.js, Inertia, JavaScript und Laravel.",
+                  "Clean Code & Best Practices – Fokus auf das Schreiben von wartbarem, lesbarem und effizientem Code gemäß Clean-Code-Prinzipien.",
+                  "Feature-Entwicklung – Design und Implementierung neuer Funktionen, Integration mit Inertia.js (Laravel, GraphQL, Inertia.js).",
+                  "Versionskontrolle & Zusammenarbeit für strukturierte Entwicklung (Git, GitFlow, Lazygit).",
+                  "Anwendung von Design Patterns (z.B. Singleton, Factory) zur Optimierung der Anwendungsarchitektur und Verbesserung der Skalierbarkeit."
+                ]
+              },
+              {
+                "role": "Full Stack Developer",
+                "company": "Brainkets",
+                "startDate": "Oct 2022",
+                "endDate": "Sep 2023",
+                "description": [
+                  "Frontend-Entwicklung – Entwicklung interaktiver Benutzeroberflächen und skalierbarer Enterprise-Web-Anwendungen mit React.js, Next.js und Redux.",
+                  "Backend-Entwicklung – Erstellung von Backend-Komponenten und REST-APIs mit Yii2 und PHP, unter Einhaltung von Clean-Code-Richtlinien.",
+                  "UI/UX-Implementierung – Umsetzung von Figma-Designs in responsive Oberflächen mit HTML, CSS, Tailwind CSS, Material UI und design systems.",
+                  "API-Integration – Verbindung von Frontend-Komponenten mit verteilten REST-basierten Backend-Systemen (REST-APIs, JSON, XML, SQL, Postman).",
+                  "Agile Zusammenarbeit – Aktiver Beitrag zur Softwareentwicklung in einer agilen Teamumgebung (GitHub, Git, SDLC).",
+                  "SEO & Performance-Optimierung – Verbesserung von Geschwindigkeit und Auffindbarkeit (SSR, Meta-Optimierung).",
+                  "Verwendung gängiger Design Patterns bei der Entwicklung skalierbarer React- und PHP-Backend-Systeme."
+                ]
+              },
+              {
+                "role": "Intern",
+                "company": "Brainkets",
+                "startDate": "Jul 2022",
+                "endDate": "Sep 2022",
+                "description": [
+                  "Praktische Erfahrung mit JavaScript, React.js, HTML, CSS und Bootstrap gesammelt, mit Beiträgen zu kleinen Enterprise-Software-Modulen."
+                ]
+              },
+              {
+                "role": "Freelancer & Private Tutor",
+                "company": null,
+                "startDate": "May 2020",
+                "endDate": "Jul 2022",
+                "description": [
+                  "Projektentwicklung – Unterstützung bei Softwareprojekten (PHP, Java, MySQL, DBMS), gelegentliche Anwendung von Design Patterns.",
+                  "Nachhilfe – Unterrichtete Python und Programmiergrundlagen, einschließlich Clean-Code-Konzepte, für Studenten."
+                ]
+              }
+            ],
+            "education": [
+              {
+                "degree": "Bachelor of Science (B.Sc.) in Computer Science (Informatik)",
+                "institution": null,
+                "graduationDate": null,
+                "details": [
+                  "Noten: 1.8",
+                  "Fokus auf OOP, Datenstrukturen, Algorithmenentwurf, Problemlösung und Komplexitätsanalyse."
+                ]
+              }
+            ],
+            "skills": {
+              "technical": [
+                "React.js",
+                "Redux",
+                "Next.js",
+                "Vue.js",
+                "Angular.js",
+                "Vite",
+                "JavaScript (ES6+)",
+                "TypeScript (ES6+)",
+                "JSX",
+                "HTMX",
+                "HTML5",
+                "CSS3",
+                "Tailwind CSS",
+                "SASS",
+                "Bootstrap",
+                "LESS",
+                "Laravel",
+                "PHP (Yii2)",
+                "Node.js",
+                "Express",
+                "MySQL",
+                "MongoDB",
+                "Postman",
+                "NPM",
+                "Git",
+                "GitHub",
+                "GitLab",
+                "GitLab CI",
+                "Jest",
+                "Cypress",
+                "LAMP Stack",
+                "Apache",
+                "Python",
+                "Java",
+                "C++",
+                "Windows",
+                "Linux",
+                "MacOS"
+              ],
+              "soft": [
+                "Teamfähigkeit",
+                "Motivation",
+                "Flexibilität",
+                "Selbstständige Arbeitsweise",
+                "Lösungsorientierte Arbeitsweise",
+                "Verantwortungsbewusste Arbeitsweise",
+                "IT- und Prozessaffinität",
+                "Schnelle Auffassungsgabe",
+                "Hohes Umsetzungsvermögen",
+                "Kommunikationsstark"
+              ],
+              "languages": [
+                "Englisch: Fortgeschritten",
+                "Deutsch: sehr gute Deutschkenntnisse",
+                "Arabisch: Muttersprache"
+              ]
+            },
+            "projects": [],
+            "achievements": [
+              "Dekan\'s Ehrenliste – Top-Studenten in akademischer Leistung",
+              "Absolvierte verschiedene Udemy-Kurse in React, Node, Testing, Laravel, GraphQL, Software-Designmuster"
+            ],
+            "hobbies": [
+              "Fitness",
+              "Travel",
+              "Gaming"
+            ],
+            "other": "Reisebereitschaft (auch mehrtägig) für geschäftliche Zwecke. Aktive Teilnahme und Beitrag zu Arbeitsgruppen und kollaborativen Teamumgebungen. For a detailed overview of projects, including descriptions and technologies used, please visit: masri.blog/Projects (https://masri.blog/Projects/Main)."
+          }', true);
+
+
+
+
         $yourApiKey = getenv('GEMINI_API_KEY');
         $client = Gemini::client($yourApiKey);
   

@@ -12,6 +12,10 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('dashboard/resume', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard.resume');
+
 Route::post('/resume/import', [ResumeImportController::class, 'store'])->middleware(['auth', 'verified'])->name('resume.import');
 
 Route::get('/settings/language', function () {
