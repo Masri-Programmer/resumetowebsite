@@ -12,10 +12,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Trash2 } from 'lucide-vue-next';
 import { useToast } from 'vue-toastification';
+import {schema } from '@/helpers'
 
-const toast = useToast();
 
-// --- Props and Setup ---
+console.log(schema);
 const props = defineProps({
     successMessage: {
         type: String,
@@ -24,8 +24,11 @@ const props = defineProps({
     parsedData: {
         type: Object as PropType<ParsedData>,
         required: true,
+        default: () => (schema),
         },
 });
+const toast = useToast();
+
 const form = useForm(props.parsedData);
 
 const addSection = (sectionKey: keyof ParsedData) => {

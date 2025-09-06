@@ -1,4 +1,4 @@
-const schema = {
+export const schema = {
     personalInfo: {
         title: 'Personal Information',
         description: 'Your personal contact details.',
