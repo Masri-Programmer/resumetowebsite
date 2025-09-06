@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { dashboard } from '@/routes';
+import { index } from '@/routes/dashboard';
 import { resume as dashboardResume } from '@/routes/dashboard';
 import { type BreadcrumbItem, type PageProps } from '@/types/index';
 import { Head, usePage } from '@inertiajs/vue3';
@@ -21,7 +21,7 @@ const page = usePage<PageProps>();
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     const base = [{
         title: 'Dashboard',
-        href: dashboard().url,
+        href: index().url,
     }];
 
     // If the current URL matches the resume page URL, add the second breadcrumb
@@ -47,7 +47,7 @@ const parsedData = computed(() => page.props.flash?.parsed_data);
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="relative w-full max-w-5xl">
                 <Transition name="slide-fade" mode="out-in">
-                    <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2" v-if="page.url === dashboard().url" key="import-view">
+                    <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2" v-if="page.url === index().url" key="import-view">
                         <ImportResume />
                     </div>
 

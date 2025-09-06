@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { dashboard } from '@/routes';
-import type {  ParsedData } from '@/types/index';
-import { router, useForm } from '@inertiajs/vue3';
-import type { PropType } from 'vue';
-import { onMounted , computed} from 'vue';
+import type { ParsedData } from '@/types/index';
+import { useForm } from '@inertiajs/vue3';
 import { cloneDeep } from 'lodash-es';
+import type { PropType } from 'vue';
 
 // ShadCN Vue Components
 import { Button } from '@/components/ui/button';
@@ -27,7 +25,7 @@ const props = defineProps({
             personalInfo: {
                 title: 'Personal Information',
                 description: 'Your personal contact details.',
-                type: 'fields',
+
                 actions: { add: false, remove: false },
                 fields: [
                     {
@@ -68,7 +66,7 @@ const props = defineProps({
             location: {
                 title: 'Location',
                 description: 'Where you are currently based.',
-                type: 'fields',
+
                 actions: { add: false, remove: false },
                 fields: [
                     {
@@ -109,7 +107,7 @@ const props = defineProps({
             socialLinks: {
                 title: 'Social & Professional Links',
                 description: 'Links to your online profiles.',
-                type: 'fields',
+
                 actions: { add: true, remove: false },
                 fields: [
                     {
@@ -149,7 +147,6 @@ const props = defineProps({
             workExperience: {
                 title: 'Work Experience',
                 description: 'Your professional work history.',
-                type: 'group',
                 actions: { add: true, remove: true },
                 fields: [
                     {
@@ -191,7 +188,6 @@ const props = defineProps({
             education: {
                 title: 'Education',
                 description: 'Your educational background.',
-                type: 'group',
                 actions: { add: true, remove: true },
                 fields: [
                     {
@@ -227,7 +223,7 @@ const props = defineProps({
             skills: {
                 title: 'Skills',
                 description: 'Your skills.',
-                type: 'fields',
+
                 actions: { add: true, remove: true },
                 fields: [
                     {
@@ -243,7 +239,7 @@ const props = defineProps({
             achievements: {
                 title: 'Achievements',
                 description: 'A list of your notable achievements.',
-                type: 'fields',
+
                 actions: { add: true, remove: true },
                 fields: [
                     {
@@ -259,7 +255,7 @@ const props = defineProps({
             projects: {
                 title: 'Projects',
                 description: 'A list of your projects.',
-                type: 'fields',
+
                 actions: { add: true, remove: true },
                 fields: [
                     {
@@ -275,7 +271,7 @@ const props = defineProps({
             hobbies: {
                 title: 'Hobbies',
                 description: 'Your interests and hobbies.',
-                type: 'fields',
+
                 actions: { add: true, remove: true },
                 fields: [
                     {
@@ -301,7 +297,6 @@ const props = defineProps({
 // });
 
 const form = useForm(props.parsedData);
-
 
 const addSection = (sectionKey: keyof ParsedData) => {
     const fieldGroupTemplate = form[sectionKey].fields[0];
@@ -334,7 +329,7 @@ const submit = () => {
 <template>
     <form v-if="parsedData" @submit.prevent="submit" class="w-full">
         <div class="space-y-6">
-            <Card class="relative" v-for="(section, sectionKey,index) in parsedData" :key="sectionKey" >
+            <Card class="relative" v-for="(section, sectionKey, index) in parsedData" :key="sectionKey">
                 <template v-if="section">
                     <CardHeader>
                         <CardTitle>{{ section.title }}</CardTitle>
@@ -348,7 +343,9 @@ const submit = () => {
                                 class="grid grid-cols-1 gap-x-6 gap-y-4 rounded-lg border p-4 sm:grid-cols-2"
                             >
                                 <div v-for="(field, fieldName) in fieldGroup" :key="fieldName" :class="field.class || 'space-y-2'">
-                                    <Label :for="`${fieldName}-${groupIndex}`">{{ (fieldName as string).charAt(0).toUpperCase() + (fieldName as string).slice(1) }}</Label>
+                                    <Label :for="`${fieldName}-${groupIndex}`">{{
+                                        (fieldName as string).charAt(0).toUpperCase() + (fieldName as string).slice(1)
+                                    }}</Label>
                                     <Textarea
                                         v-if="field.component === 'textarea'"
                                         :id="`${fieldName}-${groupIndex}`"
@@ -373,20 +370,25 @@ const submit = () => {
                             variant="destructive"
                             size="icon"
                             class="absolute top-2 right-2 h-7 w-7"
-                            @click="removeSection(String(sectionKey),index)"
+                            @click="removeSection(String(sectionKey), index)"
                         >
                             <Trash2 class="h-4 w-4" />
                         </Button>
-                        <Button v-if="section.actions?.add" type="button" variant="outline" @click="addSection(String(sectionKey) as keyof ParsedData)">
+                        <Button
+                            v-if="section.actions?.add"
+                            type="button"
+                            variant="outline"
+                            @click="addSection(String(sectionKey) as keyof ParsedData)"
+                        >
                             Add {{ section.title }}
                         </Button>
                     </CardFooter>
                 </template>
-                                </Card>
-                    
-                                <div class="flex justify-end">
-                    <Button type="submit" :disabled="form.processing">Save Resume</Button>
-                                </div>
+            </Card>
+
+            <div class="flex justify-end">
+                <Button type="submit" :disabled="form.processing">Save Resume</Button>
+            </div>
         </div>
     </form>
 </template>
