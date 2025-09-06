@@ -23,8 +23,9 @@ Route::get('/language/{locale}', function ($locale) {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
-        Route::inertia('/', 'Dashboard')->name('index');
-        Route::inertia('/resume', 'Dashboard')->name('resume');
+        Route::get('/', [ResumeController::class, 'show'])->name('index');
+        Route::get('/resume', [ResumeController::class, 'show'])->name('resume');
+        Route::get('/resumes', [ResumeController::class, 'show'])->name('resumes');
     });
 
     Route::prefix('resume')->name('resume.')->group(function () {

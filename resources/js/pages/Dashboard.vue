@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { index } from '@/routes/dashboard';
-import { resume as dashboardResume } from '@/routes/dashboard';
+import { index,  resumes as dashboardResumes, resume as dashboardResume } from '@/routes/dashboard';
 import { type BreadcrumbItem, type PageProps } from '@/types/index';
 import { Head, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import ImportResume from './ImportResume.vue';
+import CreateResume from './CreateResume.vue';
 import ResumeForm from './ResumeForm.vue';
+import Resumes from './Resumes.vue';
+import { schemaMigration } from '@/helpers';
 
+
+// todo: Google & Linked & github sign in/up
 // todo: Check Dark & Light
 // todo: Check Trans
 // todo: Cookies Policy
 // todo: Rjesume host
 // todo: resume host
+// todo: User Suggestions for fields (hobbies , language, stars or drag line....)
 // todo: fonts and colors
 // todo: work experience with html editor
 // todo: Chat Session (Multi-Turn Conversations)
@@ -31,13 +36,19 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
             href: dashboardResume().url, // Correctly points to the resume page
         });
     }
+    if (page.url === dashboardResumes().url) {
+        base.push({
+            title: 'Resumes',
+            href: dashboardResumes().url
+        });
+    }
 
     return base;
 });
 
 
 const successMessage = computed(() => page.props.flash?.success);
-const parsedData = computed(() => page.props.flash?.parsed_data);
+const parsedData = computed(() => page.props.flash?.parsed_data ?? schemaMigration(page.props.resume));
 </script>
 
 <template>
@@ -49,15 +60,17 @@ const parsedData = computed(() => page.props.flash?.parsed_data);
                 <Transition name="slide-fade" mode="out-in">
                     <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2" v-if="page.url === index().url" key="import-view">
                         <ImportResume />
+                        <CreateResume />
                     </div>
-
-                    <!-- v-else-if="parsedData && successMessage && page.url === dashboardResume().url" -->
+                    <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2" v-else-if="page.url === dashboardResumes().url">
+                        <Resumes />
+                    </div>
                     <ResumeForm
-                        v-else-if="page.url === dashboardResume().url"
+                    v-else-if="parsedData && successMessage && page.url === dashboardResume().url"
+                        :successMessage="successMessage"
+                        :parsedData="parsedData"
                         key="form-view"
                         />
-                        <!-- :successMessage="successMessage" -->
-                        <!-- :parsedData="parsedData" -->
                 </Transition>
             </div>
         </div>

@@ -48,7 +48,7 @@ const submit = () => {
                             <Download class="!h-20 !w-20 text-gray-700 transition-colors duration-300 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" />
                         </div>
                         <div class="p-8 text-left">
-                            <h2 class="text-lg font-semibold text-gray-200">{{ t('resume.importExistingTitle') }}</h2>
+                            <h2 class="text-lg font-semibold text-gray-700">{{ t('resume.importExistingTitle') }}</h2>
                             <p class="mt-1 text-sm text-gray-500 text-wrap">{{ t('resume.importExistingDescription') }}</p>
                         </div>
                     </div>
