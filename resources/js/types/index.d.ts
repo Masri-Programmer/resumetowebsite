@@ -34,49 +34,87 @@ export interface User {
     updated_at: string;
 }
 
-export interface ParsedData {
-    personalInfo?: {
-        firstName?: string;
-        lastName?: string;
-        email?: string;
-        mobile?: string;
-        website?: string;
-        location?: {
-            address?: string;
-            city?: string;
-            state?: string;
-            country?: string;
-            zipCode?: string;
-        };
-    };
-    socialLinks?: {
-        linkedin?: string;
-        github?: string;
-        [key: string]: any;
-    };
-    workExperience?: {
-        role?: string;
-        company?: string;
-        startDate?: string;
-        endDate?: string;
-        description?: string[];
-    }[];
-    education?: {
-        degree?: string;
-        institution?: string;
-        graduationDate?: string;
-    }[];
-    skills?: {
-        technical?: string[];
-        soft?: string[];
-        languages?: string[];
-    };
-    projects?: {
-        name?: string;
-        description?: string;
-        technologies?: string[];
-    }[];
+// --- RESUME FORM TYPES ---
+export interface FieldDefinition {
+    placeholder: string;
+    type: string;
+    value: string;
+    rules: FieldRules;
+    class?: string;
+    component?: 'textarea';
 }
+export interface FieldRules {
+    required?: boolean;
+    min?: number;
+    max?: number;
+    email?: boolean;
+    url?: boolean;
+    numeric?: boolean;
+    date?: boolean;
+    [key: string]: any;
+}
+export interface FormField {
+    name: string;
+    label: string;
+    placeholder: string;
+    type?: string;
+    class?: string;
+    component?: 'textarea';
+    value: string | number | string[] | null;
+    rules: FieldRules;
+}
+export type FieldGroup = Record<string, FieldDefinition>;
+export interface ResumeSection {
+    title: string;
+    description: string;
+    type: 'fields' | 'group'; // 'group' is for repeatable sections.
+    actions: {
+        add: boolean;
+        remove: boolean;
+    };
+    /**
+     * An array of field groups. For sections like "Work Experience",
+     * this array will grow as the user adds more entries. For sections like
+     * "Personal Info", it will contain just one FieldGroup.
+     */
+    fields: FieldGroup[];
+}
+
+export interface BaseSection {
+    title: string;
+    description: string;
+    actions: {
+        add: boolean;
+        remove: boolean;
+    };
+}
+
+export interface FieldsSection extends BaseSection {
+    type: 'fields';
+    fields: FormField[];
+}
+
+export interface ArraySection extends BaseSection {
+    type: 'array';
+    fields: FormField[];
+}
+
+type Section = FieldsSection | ArraySection;
+
+export interface ParsedData {
+    personalInfo: ResumeSection;
+    location: ResumeSection;
+    socialLinks: ResumeSection;
+    workExperience: ResumeSection;
+    education: ResumeSection;
+    skills: ResumeSection;
+    achievements: ResumeSection;
+    projects: ResumeSection;
+    hobbies: ResumeSection;
+    [key: string]: ResumeSection;
+}
+
+// --- MISC PAGE PROPS ---
 
 export interface PageProps {
     [key: string]: unknown;

@@ -11,6 +11,10 @@ import ResumeForm from './ResumeForm.vue';
 // todo: Check Dark & Light
 // todo: Check Trans
 // todo: Cookies Policy
+// todo: Rjesume host
+// todo: resume host
+// todo: fonts and colors
+// todo: work experience with html editor
 // todo: Chat Session (Multi-Turn Conversations)
 const page = usePage<PageProps>();
 
@@ -47,12 +51,13 @@ const parsedData = computed(() => page.props.flash?.parsed_data);
                         <ImportResume />
                     </div>
 
+                    <!-- v-else-if="parsedData && successMessage && page.url === dashboardResume().url" -->
                     <ResumeForm
-                        v-else-if="parsedData && successMessage && page.url === dashboardResume().url"
-                        :successMessage="successMessage"
-                        :parsedData="parsedData"
+                        v-else-if="page.url === dashboardResume().url"
                         key="form-view"
-                    />
+                        />
+                        <!-- :successMessage="successMessage" -->
+                        <!-- :parsedData="parsedData" -->
                 </Transition>
             </div>
         </div>
