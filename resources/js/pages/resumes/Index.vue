@@ -3,17 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
-import { destroy, edit, create, index, show } from '@/routes/resumes';
+import { create, destroy, edit, index, show } from '@/routes/resumes';
 import { BreadcrumbItem } from '@/types';
-import type { PageProps } from '@/types/index';
-import { Resume } from '@/types/index';
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { ExternalLink, Pencil, Trash2 } from 'lucide-vue-next';
 import { computed } from 'vue';
 
-const page = usePage<PageProps & { resumes: Resume[] }>();
-
-const data = computed(() => page.props.resumes);
+    const props = defineProps({
+  parsed_data: Object,
+});
 
 const formatDate = (dateString: string) => {
     if (!dateString) return 'Present';
@@ -44,8 +42,8 @@ const confirmDelete = () => {
     <Head title="Resumes" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div v-if="data && data.length > 0" class="mx-auto max-w-4xl space-y-8">
-            <Card v-for="resume in data" :key="resume.id" class="overflow-hidden rounded-xl shadow-lg">
+        <div v-if="props.parsed_data && props.parsed_data.length > 0" class="mx-auto max-w-4xl space-y-8">
+            <Card v-for="resume in props.parsed_data" :key="resume.id" class="overflow-hidden rounded-xl shadow-lg">
                 <CardHeader class="p-6">
                     <div class="flex items-start justify-between">
                         <div>
@@ -158,6 +156,9 @@ const confirmDelete = () => {
                 </CardContent>
 
                 <CardFooter v-if="resume.data.socialLinks" class="bg-muted/50 p-4">
+                    <div class="mx-auto text-center text-sm text-muted-foreground">
+                        <p>Your Signature Here &copy; {{ new Date().getFullYear() }}</p>
+                    </div>
                     <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
                         <a
                             v-if="resume.data.socialLinks[0].github"

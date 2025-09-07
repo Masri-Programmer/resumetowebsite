@@ -21,17 +21,13 @@ class ResumeController extends Controller
     {
         $resumes = Auth::user()->resumes()->orderBy('created_at', 'desc')->get();
 
-        return Inertia::render('Dashboard', [
-            'resumes' => $resumes
-        ]);
+        return Inertia::render('Dashboard', ['parsed_data' => $resumes]);
     }
     public function index()
     {
         $resumes = Auth::user()->resumes()->orderBy('created_at', 'desc')->get();
 
-        return Inertia::render('resumes/Index', [
-            'resumes' => $resumes
-        ]);
+        return Inertia::render('resumes/Index', ['parsed_data' => $resumes]);
     }
 
     public function create()
@@ -51,9 +47,7 @@ class ResumeController extends Controller
             abort(403);
         }
 
-        return Inertia::render('resumes/Show', [
-            'resume' => $resume
-        ]);
+        return Inertia::render('resumes/Show', ['parsed_data' => $resume]);
     }
 
     public function edit(Resume $resume)

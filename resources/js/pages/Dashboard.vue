@@ -18,7 +18,6 @@ import CreateCard from './resumes/CeateCard.vue';
 // todo: fonts and colors
 // todo: work experience with html editor
 // todo: Chat Session (Multi-Turn Conversations)
-
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     const base = [{
         title: 'Dashboard',

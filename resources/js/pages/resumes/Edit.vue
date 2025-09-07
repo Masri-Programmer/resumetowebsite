@@ -2,7 +2,7 @@
 import { schema } from '@/helpers';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
-import { update , store} from '@/routes/resumes';
+import { update } from '@/routes/resumes';
 import type { BreadcrumbItem, ResumeData as ResumeDataTypes, Schema , PageProps} from '@/types';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { Trash2 } from 'lucide-vue-next';
