@@ -6,7 +6,6 @@ import HeadingSmall from '@/components/HeadingSmall.vue';
 import LanguageSelector from '@/components/LanguageSelector.vue';
 import type { BreadcrumbItem } from '@/types';
 
-// Since Ziggy is removed, we use static paths
 const breadcrumbItems: BreadcrumbItem[] = [
     {
         title: 'Language settings',

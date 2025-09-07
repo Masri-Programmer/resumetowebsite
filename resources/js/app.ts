@@ -5,7 +5,6 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, DefineComponent, h } from 'vue';
 import Toast from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
-// import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import { initializeTheme } from './composables/useAppearance';
 import 'vue-toastification/dist/index.css';
 import i18n from './i18n';

@@ -56,15 +56,13 @@ const footerNavItems: NavItem[] = [
         </SidebarContent>
 
         <SidebarFooter>
+            <p class="text-zinc dark:text-invert ml-2 flex max-w-none flex-col gap-y-1 text-xs opacity-40">
+                <a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/Masri-Programmer/resumetowebsite/blob/main/LICENSE.md" class="underline" >  Licensed under MIT</a >
+                By the community, for the community. A passion project by
+                <a href="http://masri.blog" target="_blank" rel="noopener noreferrer" class="underline">Mohamad Masri</a>
+            </p>
             <NavFooter :items="footerNavItems" />
             <NavUser />
-            Licensed under MIT
-By the community, for the community.
-A passion project by Amruth Pillai
-Reactive Resume v4.4.6Licensed under MIT
-By the community, for the community.
-A passion project by Amruth Pillai
-Reactive Resume v4.4.6
         </SidebarFooter>
     </Sidebar>
     <slot />

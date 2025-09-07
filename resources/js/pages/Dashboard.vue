@@ -13,11 +13,14 @@ import CreateCard from './resumes/CeateCard.vue';
 // todo: Check Trans
 // todo: Cookies Policy
 // todo: Rjesume host
+// todo: tiptap editor
 // todo: resume host
 // todo: User Suggestions for fields (hobbies , language, stars or drag line....)
 // todo: fonts and colors
 // todo: work experience with html editor
+// todo: docs
 // todo: Chat Session (Multi-Turn Conversations)
+
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     const base = [{
         title: 'Dashboard',
@@ -33,9 +36,13 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
                 <!-- <Transition name="slide-fade" mode="out-in"> -->
+                     <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+            <div class="relative w-full max-w-5xl">
                     <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
                         <Import />
                         <CreateCard />
+                    </div>
+                    </div>
                     </div>
                 <!-- </Transition> -->
     </AppLayout>
