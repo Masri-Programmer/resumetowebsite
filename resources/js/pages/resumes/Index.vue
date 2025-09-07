@@ -9,8 +9,8 @@ import { Head, Link } from '@inertiajs/vue3';
 import { ExternalLink, Pencil, Trash2 } from 'lucide-vue-next';
 import { computed } from 'vue';
 
-    const props = defineProps({
-  parsed_data: Object,
+const props = defineProps({
+    parsed_data: Object,
 });
 
 const formatDate = (dateString: string) => {
