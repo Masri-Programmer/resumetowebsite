@@ -1,6 +1,18 @@
 {
     "private": true,
     "type": "module",
+    "description": "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume online.",
+    "version": "4.4.6",
+    "license": "MIT",
+    "author": {
+        "name": "Mohamad Masri",
+        "url": "https://masri.blog",
+        "email": "info@masri.blog"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Masri-Programmer/resumetowebsite.git"
+    },
     "scripts": {
         "build": "vite build",
         "build:ssr": "vite build && vite build --ssr",

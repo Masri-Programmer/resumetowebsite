@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {  login, register } from '@/routes';
-import { index as dashboard } from '@/routes/dashboard';
+import {  dashboard } from '@/routes';
 import { Head, Link } from '@inertiajs/vue3';
 </script>
 
