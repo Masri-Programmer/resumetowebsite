@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /drafts/
+Disallow: /temp/
+Sitemap: https://resumetowebsite.masri.blog/sitemap.xml

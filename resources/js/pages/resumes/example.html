@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Resume Template" />
+  <meta name="author" content="" />
+  <title>Your Name - Resume</title>
+  <link rel="canonical" href="#" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+  <meta property="og:title" content="Resume Template" />
+  <meta property="og:description" content="A clean resume template." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="#" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Resume Template" />
+  <meta name="twitter:description" content="A clean resume template." />
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display+SC&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = {
+      darkMode: "class", theme: { extend: {}, },
+    };</script>
+
+  </style>
+</head>
+
+<body id="pdf-content"
+  class="text-stone-900 font-sans leading-relaxed bg-stone-100 dark:bg-stone-800 dark:text-neutral-300 overflow-x-hidden">
+
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Your Name",
+        "url": "#",
+        "description": "Professional resume template showcasing work experience, technical skills, education, and projects."
+      }
+    </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <link rel="stylesheet" href="./style.css">
+
+  <div id="resumeContent" class="max-w-4xl mx-auto p-6 bg-stone-50 shadow-md dark:bg-stone-950 overflow-hidden">
+
+    <header id="header" class="border-b pb-6 mb-6"> <div class="relative flex flex-col items-center gap-4 sm:flex-row sm:justify-start sm:gap-6 md:gap-10">
+        <img class="h-16 w-16 rounded-full object-cover sm:h-16 sm:w-16" src="./profile.jpg" alt="Avatar" />
+        <div class="grow w-full text-center sm:text-start">
+          <h3 class="text-2xl font-bold md:text-3xl">Your Name</h3>
+          <div class="flex flex-col items-center sm:flex-row sm:items-baseline w-full text-center md:text-start mt-1">
+            <p>
+              City, Country |
+              <a target="_blank" href="mailto:your.email@example.com">your.email@example.com</a>
+              |
+              <a target="_blank" href="https://yourwebsite.com">www.yourwebsite.com</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="work-experience" class="mb-4 md:mb-8"> <h2 class="text-xl font-semibold mb-2 title-font">
+        Work Experience
+      </h2>
+
+      <div class="mb-6">
+        <h3 class="font-bold">
+          <span>Job Title</span>
+          – Company Name (Location/Remote)
+        </h3>
+        <p class="text-sm text-gray-600">Month Year – Month Year</p>
+        <ul class="list-disc ml-5 mt-2 text-sm">
+          <li>
+            Description of your responsibility or achievement. Use action verbs.
+          </li>
+          <li>
+            Another description of your responsibility or achievement.
+          </li>
+          <li>
+            Quantify your impact whenever possible, e.g., "Increased efficiency by 20%."
+          </li>
+        </ul>
+      </div>
+
+      <div class="mb-6">
+        <h3 class="font-bold">Another Job Title – Another Company (Location/Remote)</h3>
+        <p class="text-sm text-gray-600">Month Year – Month Year</p>
+        <ul class="list-disc ml-5 mt-2 text-sm">
+          <li>
+            Responsibility or achievement.
+          </li>
+          <li>
+            Responsibility or achievement.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="technical-skills" class="mb-4 md:mb-8"> <h2 class="text-xl font-semibold mb-2">
+        Technical Skills
+      </h2>
+      <div class="text-sm grid gap-1 space-y-2">
+        <div>
+          <h4 class="font-semibold">
+            Frontend
+          </h4>
+          <ul class="list-disc ml-5">
+            <li>
+              Framework (e.g., React.js, Vue.js, Angular)
+            </li>
+            <li>JavaScript & TypeScript (ES6+)</li>
+            <li>HTML5, CSS3 (e.g., Tailwind, SASS, Bootstrap)</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">
+            Backend & Tools
+          </h4>
+          <ul class="list-disc ml-5">
+            <li>Language/Framework (e.g., Laravel, PHP, Node.js)</li>
+            <li>Database (e.g., SQL-MySQL, NoSQL-MongoDB)</li>
+            <li>
+              Version Control (e.g., Git/GitHub)
+            </li>
+            <li>Testing (e.g., Jest, Cypress)</li>
+            <li>
+              Dev Stack (e.g., LAMP)
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">
+            Other
+          </h4>
+          <ul class="list-disc ml-5">
+            <li>Python, Java, C++, etc.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">
+            Competences
+          </h4>
+          <ul class="list-disc ml-5">
+            <li>Soft Skill 1 (e.g., Teamwork)</li>
+            <li>Soft Skill 2 (e.g., Problem-solving)</li>
+            <li>Soft Skill 3 (e.g., Communication)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="mb-4 md:mb-8"> <h2 class="text-xl font-semibold mb-2">
+        Education
+      </h2>
+      <p>
+        <strong>
+          <span>Degree Name (e.g., B.Sc. in Computer Science)</span>
+        </strong>
+        <span class="text-sm text-gray-600">
+          - GPA: X.XX / 4.0
+        </span>
+      </p>
+      <p class="text-sm mt-2">
+        University Name, City, Country
+      </p>
+      <p class="text-sm mt-2">
+        Relevant coursework or focus area.
+      </p>
+    </section>
+
+    <section id="academic-achievements" class="mb-4 md:mb-8"> <h2 class="text-xl font-semibold mb-2">
+        Academic Achievements
+      </h2>
+      <ul class="list-disc ml-5 text-sm">
+        <li>
+          Honors or awards (e.g., Dean's List).
+        </li>
+        <li>
+          Relevant certifications or online courses completed.
+        </li>
+      </ul>
+    </section>
+
+    <div class="projects grid grid-cols-2 gap-5"> <section id="projects" class="mb-4 md:mb-8"> <h2 class="text-xl font-semibold mb-2">
+          Projects
+        </h2>
+        <p class="text-sm">
+          <span>For a detailed overview of my projects, please visit my portfolio:</span>
+          <a target="_blank" href="https://yourwebsite.com/projects" class="text-blue-200 underline hover:text-blue-300"
+            aria-label="View all projects (opens in a new tab)">
+            www.yourwebsite.com/projects</a>
+        </p>
+      </section>
+      <section id="languages" class="mb-4 md:mb-8"> <h2 class="text-xl font-semibold mb-2 title-font">
+          Languages
+        </h2>
+
+        <ul class="ml-1 text-sm space-y-1">
+          <li>
+            <span>Language 1: Proficiency Level</span>
+          </li>
+          <li>
+            <span>Language 2: Proficiency Level</span>
+          </li>
+          <li>
+            <span>Language 3: Proficiency Level</span>
+          </li>
+        </ul>
+      </section>
+      <section id="other-info" class="mb-4 md:mb-8"> <h2 class="text-xl font-semibold">
+          Other
+        </h2>
+        <div class="text-sm">
+          <li>
+            Relevant information like willingness to travel or relocate.
+          </li>
+          <li>
+            Another piece of relevant information.
+          </li>
+        </div>
+      </section>
+      <section id="hobbies" class="mb-4 md:mb-8"> <h2 class="text-xl font-semibold">
+          Hobbies
+        </h2>
+        <div class="text-sm">
+          <li>Hobby 1,</li>
+          <li>Hobby 2,</li>
+          <li>Hobby 3</li>
+        </div>
+      </section>
+    </div>
+
+    <blockquote cite="#" class="text-sm"> "A brief, professional summary or a quote that represents your work ethic."
+    </blockquote>
+
+  </div>
+  <footer id="footer"
+    class="text-center text-xs text-gray-500 mt-10 fixed bottom-0 right-0 px-2 pt-2 text-xs text-gray-600 z-[9999]">
+    <div class="print-signature">
+      <a href="https://yourwebsite.com" target="_blank" rel="noopener noreferrer">https://yourwebsite.com</a>
+    </div>
+  </footer>
+ 
+  <div class="fixed top-4 right-4 flex flex-col space-y-3 no-print">  <button id="theme-toggle"
+      class="flex items-center justify-center p-2 bg-gray-200 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-500 transition-colors duration-200"
+      aria-label="Toggle Theme">
+      <i data-lucide="sun-moon" class="w-5 h-5 text-gray-700 dark:text-gray-400"></i>
+    </button>
+
+    <button onClick="window.print()"
+      class="flex items-center justify-center p-2 bg-gray-200 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-500 transition-colors duration-200"
+      aria-label="Print Page">
+      <i data-lucide="Printer" class="w-5 h-5 text-gray-700 dark:text-gray-400"></i>
+    </button>
+
+    <button onclick="downloadPdfHandler()" id="downloadPdf"
+      class="flex items-center justify-center p-2 bg-gray-200 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-500 transition-colors duration-200"
+      aria-label="Download Page">
+      <i data-lucide="Download" class="w-5 h-5 text-gray-700 dark:text-gray-400"></i>
+    </button>
+  </div>
+</body>
+
+</html>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+<script>
+  const themeToggleBtn = document.getElementById("theme-toggle");
+  const htmlElement = document.documentElement;
+
+  function setTheme(theme) {
+    if (theme === "dark") {
+      htmlElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      htmlElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }
+
+  const storedTheme = localStorage.getItem("theme");
+  if (storedTheme) {
+    setTheme(storedTheme);
+  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    setTheme("dark");
+  } else {
+    setTheme("light");
+  }
+
+  themeToggleBtn.addEventListener("click", () => {
+    if (htmlElement.classList.contains("dark")) {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
+  });
+</script>
+
+<script>
+  function downloadPdfHandler() {
+    const resumeElement = document.getElementById("resumeContent");
+
+    document.body.classList.add("pdf-export-active");
+
+    html2canvas(resumeElement, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: window
+        .getComputedStyle(document.body)
+        .getPropertyValue("background-color"),
+    })
+      .then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+          orientation: "portrait",
+          unit: "pt",
+          format: "a4",
+        });
+
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        const bottomMargin = 10;
+
+        const usablePdfPageHeight = pdfHeight - bottomMargin;
+
+        const imgHeightInPdf = (imgProps.height * pdfWidth) / imgProps.width;
+
+        let heightLeft = imgHeightInPdf;
+        let position = 0;
+
+        // Add the first page
+        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeightInPdf);
+        heightLeft -= usablePdfPageHeight;
+
+        while (heightLeft > 0) {
+          position = heightLeft - imgHeightInPdf;
+          pdf.addPage();
+          pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeightInPdf);
+          heightLeft -= usablePdfPageHeight;
+        }
+        pdf.save("resume.pdf");
+      })
+      .catch((err) => {
+        console.error("Error generating PDF:", err);
+      })
+      .finally(() => {
+        document.body.classList.remove("pdf-export-active");
+      });
+  }
+</script>

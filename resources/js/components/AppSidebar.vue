@@ -4,9 +4,10 @@ import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
+import { index as resumes } from '@/routes/resumes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
+import { Folder, LayoutGrid, Newspaper } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -14,6 +15,11 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+    },
+    {
+        title: 'My Resumes',
+        href: resumes(),
+        icon: Newspaper,
     },
 ];
 
@@ -52,6 +58,13 @@ const footerNavItems: NavItem[] = [
         <SidebarFooter>
             <NavFooter :items="footerNavItems" />
             <NavUser />
+            Licensed under MIT
+By the community, for the community.
+A passion project by Amruth Pillai
+Reactive Resume v4.4.6Licensed under MIT
+By the community, for the community.
+A passion project by Amruth Pillai
+Reactive Resume v4.4.6
         </SidebarFooter>
     </Sidebar>
     <slot />

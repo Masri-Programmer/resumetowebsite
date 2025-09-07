@@ -11,3 +11,12 @@
                     <p class="mt-1 text-sm text-gray-500">Start building from scratch</p>
                 </div>
             </a> -->
+<template>
+    <div>
+
+    </div>
+</template>
+
+<style lang="scss" scoped>
+
+</style>

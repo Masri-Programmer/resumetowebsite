@@ -1,9 +1,15 @@
 {
     "greeting": "Hello, world!",
     "resume": {
+        "importExistingTitle": "Import an existing resume",
+        "createTitle": "Create a new resume",
+        "createDescription": "Create a resume from scratch.",
+        "importExistingDescription": "Upload a file from one of the accepted sources to parse existing data and import it into Reactive Resume for easier editing.",
         "importTitle": "Import an existing resume",
-        "importDescription": "Upload a file from one of the accepted sources to parse existing data and import it into Reactive Resume for easier editing.",
+        "fileLabel": "File",
         "validateButton": "Validate",
-        "cancel": "cancel"
+        "validating": "Validating...",
+        "cancel": "cancel",
+        "importSuccess": "Resume imported and analyzed successfully!"
     }
 }
