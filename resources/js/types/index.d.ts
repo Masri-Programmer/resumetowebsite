@@ -148,3 +148,13 @@ export interface PageProps extends AppPageProps {
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export interface Resume {
+    id: number;
+    user_id: number;
+    data: ResumeData;
+    created_at: string;
+    updated_at: string;
+}
+
+

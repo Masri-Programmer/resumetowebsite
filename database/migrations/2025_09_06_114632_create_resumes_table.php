@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->json('data');
+            $table->json('data')->nullable();
             $table->timestamps();
         });
     }

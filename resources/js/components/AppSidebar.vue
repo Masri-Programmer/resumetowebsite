@@ -3,8 +3,8 @@ import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { index as dashboard} from '@/routes/dashboard';
-import { resumes } from '@/routes/dashboard/resumes';
+import { dashboard } from '@/routes';
+import { index as resumes } from '@/routes/resumes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { Folder, LayoutGrid, Newspaper } from 'lucide-vue-next';
@@ -18,7 +18,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'My Resumes',
-        href: resumes.index(),
+        href: resumes(),
         icon: Newspaper,
     },
 ];

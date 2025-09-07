@@ -172,7 +172,7 @@ export const schema = {
                     placeholder: 'e.g., University of Oldenburg',
                     label: 'Institution',
                     type: 'text',
-                    rules: { required: true, min: 2, max: 255 },
+                    rules: { required: false, min: 2, max: 255 },
                 },
                 graduationDate: {
                     placeholder: 'e.g., Sep 2022',

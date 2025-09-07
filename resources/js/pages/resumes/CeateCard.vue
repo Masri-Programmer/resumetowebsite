@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { resume as dashboardResume } from '@/routes/dashboard';
+import { create  } from'@/routes/resumes';
 import { Plus } from "lucide-vue-next"
 import { useI18n } from 'vue-i18n';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
@@ -9,7 +9,7 @@ const { t } = useI18n();
 </script>
 
 <template>
-    <Link :href="dashboardResume().url">
+    <Link :href="create.url()">
         <div class="card-glow group relative flex aspect-[4/5] w-full cursor-pointer flex-col justify-center overflow-hidden rounded-2xl border border-gray-900">
             <PlaceholderPattern />
             <div class="flex flex-1 items-center justify-center">
