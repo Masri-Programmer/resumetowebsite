@@ -7,15 +7,11 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\PdfToText\Pdf;
+use Illuminate\Support\Facades\Config;
 use Gemini;
+
 class ResumeImportController extends Controller
 {
-    /**
-     * Store, parse, and analyze the uploaded resume file.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -68,309 +64,152 @@ class ResumeImportController extends Controller
             ->with('parsed_data', $finalData);
     }
 
-    /**
-     * Analyzes resume text using the Gemini API and returns structured data.
-     *
-     * @param string $resumeText
-     * @return array|null
-     */
     private function analyzeResumeWithGemini(string $resumeText): ?array
     {
         return json_decode('{
-            "personalInfo": {
-                "title": "Personal Information",
-                "description": "Your personal contact details.",
-                "actions": { "add": false, "remove": false },
-                "fields": [
-                    {
-                        "firstName": {
-                            "placeholder": "e.g., Mohamad",
-                            "type": "string",
-                            "value": "Mohamad",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        },
-                        "lastName": {
-                            "placeholder": "e.g., Masri",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        },
-                        "email": {
-                            "placeholder": "e.g., your@email.com",
-                            "type": "email",
-                            "value": "",
-                            "rules": { "required": true, "email": true }
-                        },
-                        "mobile": {
-                            "placeholder": "e.g., +49 123 456789",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": false, "min": 10, "max": 20 }
-                        },
-                        "website": {
-                            "placeholder": "e.g., www.your-portfolio.com",
-                            "class": "sm:col-span-2",
-                            "type": "url",
-                            "value": "",
-                            "rules": { "required": false, "url": true }
-                        }
-                    }
-                ]
-            },
-            "location": {
-                "title": "Location",
-                "description": "Where you are currently based.",
-                "actions": { "add": false, "remove": false },
-                "fields": [
-                    {
-                        "address": {
-                            "placeholder": "e.g., Musterstraße 1",
-                            "class": "sm:col-span-2",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 5, "max": 255 }
-                        },
-                        "city": {
-                            "placeholder": "e.g., Oldenburg",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        },
-                        "state": {
-                            "placeholder": "e.g., Lower Saxony",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        },
-                        "zipCode": {
-                            "placeholder": "e.g., 26121",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "numeric": true, "min": 4, "max": 10 }
-                        },
-                        "country": {
-                            "placeholder": "e.g., Germany",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        }
-                    }
-                ]
-            },
-            "socialLinks": {
-                "title": "Social & Professional Links",
-                "description": "Links to your online profiles.",
-                "actions": { "add": true, "remove": false },
-                "fields": [
-                    {
-                        "linkedin": {
-                            "placeholder": "URL of your LinkedIn profile",
-                            "type": "url",
-                            "value": "",
-                            "rules": { "required": false, "url": true }
-                        },
-                        "github": {
-                            "placeholder": "URL of your GitHub profile",
-                            "type": "url",
-                            "value": "",
-                            "rules": { "required": false, "url": true }
-                        },
-                        "twitter": {
-                            "placeholder": "URL of your Twitter profile",
-                            "type": "url",
-                            "value": "",
-                            "rules": { "required": false, "url": true }
-                        },
-                        "instagram": {
-                            "placeholder": "URL of your Instagram profile",
-                            "type": "url",
-                            "value": "",
-                            "rules": { "required": false, "url": true }
-                        },
-                        "other": {
-                            "placeholder": "URL of a profile",
-                            "type": "url",
-                            "value": "",
-                            "rules": { "required": false, "url": true }
-                        }
-                    }
-                ]
-            },
-            "workExperience": {
-                "title": "Work Experience",
-                "description": "Your professional work history.",
-                "actions": { "add": true, "remove": true },
-                "fields": [
-                    {
-                        "role": {
-                            "placeholder": "e.g., Full Stack Developer",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        },
-                        "company": {
-                            "placeholder": "e.g., Tech Solutions Inc.",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        },
-                        "startDate": {
-                            "placeholder": "e.g., Oct 2022",
-                            "type": "date",
-                            "value": "",
-                            "rules": { "required": true, "date": true }
-                        },
-                        "endDate": {
-                            "placeholder": "e.g., Sep 2023 or Present",
-                            "type": "date",
-                            "value": "",
-                            "rules": { "required": false, "date": true }
-                        },
-                        "description": {
-                            "component": "textarea",
-                            "placeholder": "Enter each responsibility on a new line.",
-                            "class": "sm:col-span-2",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": false, "max": 2000 }
-                        }
-                    }
-                ]
-            },
-            "education": {
-                "title": "Education",
-                "description": "Your educational background.",
-                "actions": { "add": true, "remove": true },
-                "fields": [
-                    {
-                        "degree": {
-                            "placeholder": "e.g., B.Sc. in Computer Science",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        },
-                        "institution": {
-                            "placeholder": "e.g., University of Oldenburg",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        },
-                        "graduationDate": {
-                            "placeholder": "e.g., Sep 2022",
-                            "type": "date",
-                            "value": "",
-                            "rules": { "required": true, "date": true }
-                        },
-                        "details": {
-                            "component": "textarea",
-                            "placeholder": "e.g., Grade: 1.8\nFocus on OOP...",
-                            "class": "sm:col-span-2",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": false, "max": 2000 }
-                        }
-                    }
-                ]
-            },
-            "skills": {
-                "title": "Skills",
-                "description": "Your skills.",
-                "actions": { "add": true, "remove": true },
-                "fields": [
-                    {
-                        "skill": {
-                            "placeholder": "e.g., Vue.js, Laravel, Teamwork",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        }
-                    }
-                ]
-            },
-            "achievements": {
-                "title": "Achievements",
-                "description": "A list of your notable achievements.",
-                "actions": { "add": true, "remove": true },
-                "fields": [
-                    {
-                        "achievement": {
-                            "placeholder": "Enter each achievement on a new line.",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        }
-                    }
-                ]
-            },
-            "projects": {
-                "title": "Projects",
-                "description": "A list of your projects.",
-                "actions": { "add": true, "remove": true },
-                "fields": [
-                    {
-                        "project": {
-                            "placeholder": "Enter each project on a new line.",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": true, "min": 2, "max": 255 }
-                        }
-                    }
-                ]
-            },
-            "hobbies": {
-                "title": "Hobbies",
-                "description": "Your interests and hobbies.",
-                "actions": { "add": true, "remove": true },
-                "fields": [
-                    {
-                        "hobby": {
-                            "name": "hobby",
-                            "label": "Hobby",
-                            "placeholder": "e.g., Fitness, Travel, Gaming",
-                            "type": "string",
-                            "value": "",
-                            "rules": { "required": false, "min": 2, "max": 255 }
-                        }
-                    }
-                ]
-            }
+            "skills": [
+                {
+                    "skill": "Selbstständige Arbeitsweise"
+                },
+                {
+                    "skill": "Lösungsorientierte Arbeitsweise"
+                },
+                {
+                    "skill": "Verantwortungsbewusste Arbeitsweise"
+                },
+                {
+                    "skill": "IT- und Prozessaffinität"
+                },
+                {
+                    "skill": "Schnelle Auffassungsgabe"
+                },
+                {
+                    "skill": "Hohes Umsetzungsvermögen"
+                },
+                {
+                    "skill": "Kommunikationsstark"
+                }
+            ],
+            "hobbies": [
+                {
+                    "hobby": "Fitness"
+                },
+                {
+                    "hobby": "Travel"
+                },
+                {
+                    "hobby": "Gaming"
+                }
+            ],
+            "location": [
+                {
+                    "city": "Oldenburg",
+                    "state": null,
+                    "address": null,
+                    "country": "Germany",
+                    "zipCode": null
+                }
+            ],
+            "projects": [
+                {
+                    "project": "Detailed overview of projects available at masri.blog/Projects"
+                }
+            ],
+            "education": [
+                {
+                    "degree": "Bachelor of Science (B.Sc.) in Computer Science (Informatik)",
+                    "details": "Noten: 1.8; Fokus auf OOP, Datenstrukturen, Algorithmenentwurf, Problemlösung und Komplexitätsanalyse.",
+                    "institution": null,
+                    "graduationDate": null
+                }
+            ],
+            "socialLinks": [
+                {
+                    "other": null,
+                    "github": null,
+                    "twitter": null,
+                    "linkedin": null,
+                    "instagram": null
+                }
+            ],
+            "achievements": [
+                {
+                    "achievement": "Dekans Ehrenliste – Top-Studenten in akademischer Leistung"
+                },
+                {
+                    "achievement": "Absolvierte verschiedene Udemy-Kurse in React, Node, Testing, Laravel, GraphQL, Software-Designmuster"
+                }
+            ],
+            "personalInfo": [
+                {
+                    "email": "masri_mohamad@protonmail.com",
+                    "mobile": null,
+                    "website": "https:/www.masri.blog",
+                    "lastName": "Masri",
+                    "firstName": "Mohamad"
+                }
+            ],
+            "workExperience": [
+                {
+                    "role": "Softwareentwickler",
+                    "company": "Meinders & Elstermann GmbH & Co. KG",
+                    "endDate": "Present",
+                    "startDate": "Apr 2024",
+                    "description": "Erstellung skalierbarer Lösungen für Unternehmenskunden mit Vue.js, Inertia, JavaScript und Laravel; Fokus auf das Schreiben von wartbarem, lesbarem und effizientem Code gemäß Clean-Code-Prinzipien; Design und Implementierung neuer Funktionen, Integration mit Inertia.js (Laravel, GraphQL, Inertia.js); Versionskontrolle & Zusammenarbeit für strukturierte Entwicklung (Git, GitFlow, Lazygit); Anwendung von Design Patterns (z.B. Singleton, Factory) zur Optimierung der Anwendungsarchitektur und Verbesserung der Skalierbarkeit."
+                },
+                {
+                    "role": "Full Stack Developer",
+                    "company": "Brainkets",
+                    "endDate": "Sep 2023",
+                    "startDate": "Oct 2022",
+                    "description": "Entwicklung interaktiver Benutzeroberflächen und skalierbarer Enterprise-WebAnwendungen mit React.js, Next.js und Redux; Erstellung von Backend-Komponenten und REST-APIs mit Yii2 und PHP, unter Einhaltung von Clean-Code-Richtlinien; Umsetzung von Figma-Designs in responsive Oberflächen mit HTML, CSS, Tailwind CSS, Material UI und design systems; Verbindung von Frontend-Komponenten mit verteilten REST-basierten Backend-Systemen (REST-APIs,JSON, XML, SQL, Postman); Aktiver Beitrag zur Softwareentwicklung in einer agilen Teamumgebung (GitHub, Git, SDLC); Verbesserung von Geschwindigkeit und Auffindbarkeit (SSR, Meta-Optimierung); Verwendung gängiger Design Patterns bei der Entwicklung skalierbarer React- und PHP-Backend-Systeme."
+                },
+                {
+                    "role": "Intern",
+                    "company": "Brainkets",
+                    "endDate": "Sep 2022",
+                    "startDate": "Jul 2022",
+                    "description": "Praktische Erfahrung mit JavaScript, React.js, HTML, CSS und Bootstrap gesammelt; Beiträge zu kleinen Enterprise-Software-Modulen."
+                },
+                {
+                    "role": "Freelancer & Private Tutor",
+                    "company": null,
+                    "endDate": "Jul 2022",
+                    "startDate": "May 2020",
+                    "description": "Unterstützung bei Softwareprojekten (PHP, Java, MySQL, DBMS), gelegentliche Anwendung von Design Patterns; Unterrichtete Python und Programmiergrundlagen, einschließlich Clean-Code-Konzepte, für Studenten."
+                }
+            ]
         }', true);
-
-
+        
         $yourApiKey = getenv('GEMINI_API_KEY');
         $client = Gemini::client($yourApiKey);
-  
+        $resumeSchema = json_encode(Config::get('portfolio.resume'), JSON_PRETTY_PRINT);
+
         $prompt = <<<PROMPT
-Analyze the following resume text and extract the information into a structured JSON object.
+        You are an expert resume parsing API. Your sole function is to analyze the provided resume text and return a single, raw JSON object that strictly adheres to the schema and rules below.
 
-**JSON Schema:**
--   `personalInfo`: { `firstName`, `lastName`, `email`, `telephone`, `mobile`, `website`, `location`: { `address`, `city`, `state`, `country`, `zipCode` } }
--   `socialLinks`: { `linkedin`, `github`, `twitter`, `instagram`, `other`: [] }
--   `workExperience`: [ { `role`, `company`, `startDate`, `endDate`, `description`: [] } ]
--   `education`: [ { `degree`, `institution`, `graduationDate`, `details`: [] } ]
--   `skills`: { `technical`: [], `soft`: [], `languages`: [] }
--   `projects`: [ { `name`, `description`, `technologies`: [] } ]
--   `achievements`: []
--   `hobbies`: []
--   `other`: "Any other relevant information that doesn't fit elsewhere."
+        **JSON Schema to Follow:**
+        ```json
+        {$resumeSchema}
+        ```
 
-**Instructions:**
-1.  Populate all fields based on the text.
-2.  If a field or sub-field is not found, use `null` as its value.
-3.  Dates should be formatted as 'Month YYYY' or 'YYYY-MM-DD' if possible.
-4.  For array fields like `description` or `details`, split distinct points into separate strings.
-5.  Your entire response must be **only the JSON object**, without any surrounding text, explanations, or markdown formatting like ```json.
+        **Instructions:**
+        1.  Populate all fields based on the text.
+        2.  If a field or sub-field is not found, use `null` as its value.
+        3.  Dates should be formatted as 'Month YYYY' or 'YYYY-MM-DD' if possible.
+        4.  For array fields like `description` or `details`, split distinct points into separate strings.
+        5.  Your entire response must be **only the JSON object**, without any surrounding text, explanations, or markdown formatting like ```json.
 
-**Resume Text to Analyze:**
----
-{$resumeText}
----
-PROMPT;
+        **Resume Text to Analyze:**
+        ---
+        {$resumeText}
+        ---
+        PROMPT;
 
         $result = $client->generativeModel(model: 'gemini-2.5-flash')->generateContent($prompt);
         $cleanedResponse = trim($result->text());
 
-        $cleanedResponse = str_replace(['```json', '```'], '', $cleanedResponse);
+        $cleanedResponse = str_replace(['```json', '```'], "", $cleanedResponse);
 
         return json_decode($cleanedResponse, true);
     }

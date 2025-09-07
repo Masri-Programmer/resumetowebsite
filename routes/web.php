@@ -25,7 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', [ResumeController::class, 'show'])->name('index');
         Route::get('/resume', [ResumeController::class, 'show'])->name('resume');
-        Route::get('/resumes', [ResumeController::class, 'show'])->name('resumes');
+        Route::resource('resumes', ResumeController::class)->names('resumes');
     });
 
     Route::prefix('resume')->name('resume.')->group(function () {

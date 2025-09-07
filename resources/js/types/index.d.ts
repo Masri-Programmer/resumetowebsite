@@ -35,15 +35,8 @@ export interface User {
 }
 
 // --- RESUME FORM TYPES ---
-export interface FieldDefinition {
-    placeholder: string;
-    type: string;
-    value: string;
-    rules: FieldRules;
-    class?: string;
-    component?: 'textarea';
-}
-export interface FieldRules {
+
+export interface Rules {
     required?: boolean;
     min?: number;
     max?: number;
@@ -51,76 +44,106 @@ export interface FieldRules {
     url?: boolean;
     numeric?: boolean;
     date?: boolean;
-    [key: string]: any;
 }
-export interface FormField {
-    name: string;
-    label: string;
+
+export type FieldType = 'text' | 'email' | 'number' | 'url' | 'date' | 'textarea';
+
+export interface Field {
     placeholder: string;
-    type?: string;
-    class?: string;
+    label: string;
+    type: FieldType;
+    rules: Rules;
     component?: 'textarea';
-    value: string | number | string[] | null;
-    rules: FieldRules;
 }
-export type FieldGroup = Record<string, FieldDefinition>;
-export interface ResumeSection {
+
+export type FieldGroup = Record<string, Field>;
+
+export interface Actions {
+    add: boolean;
+    remove: boolean;
+}
+
+export interface Section {
     title: string;
     description: string;
-    type: 'fields' | 'group'; // 'group' is for repeatable sections.
-    actions: {
-        add: boolean;
-        remove: boolean;
-    };
-    /**
-     * An array of field groups. For sections like "Work Experience",
-     * this array will grow as the user adds more entries. For sections like
-     * "Personal Info", it will contain just one FieldGroup.
-     */
+    actions: Actions;
     fields: FieldGroup[];
 }
 
-export interface BaseSection {
-    title: string;
+export type Schema = Record<string, Section>;
+
+interface Skill {
+    skill: string;
+}
+
+interface Hobby {
+    hobby: string;
+}
+
+interface Location {
+    city: string;
+    state: string | null;
+    address: string | null;
+    country: string;
+    zipCode: string | null;
+}
+
+interface Project {
+    project: string;
+}
+
+interface Education {
+    degree: string;
+    details: string;
+    institution: string | null;
+    graduationDate: string | null;
+}
+
+interface SocialLinks {
+    other: string | null;
+    github: string | null;
+    twitter: string | null;
+    linkedin: string | null;
+    instagram: string | null;
+}
+
+interface Achievement {
+    achievement: string;
+}
+
+interface PersonalInfo {
+    email: string;
+    mobile: string | null;
+    website: string;
+    lastName: string;
+    firstName: string;
+}
+
+interface WorkExperience {
+    role: string;
+    company: string | null;
+    endDate: string;
+    startDate: string;
     description: string;
-    actions: {
-        add: boolean;
-        remove: boolean;
-    };
 }
 
-export interface FieldsSection extends BaseSection {
-    type: 'fields';
-    fields: FormField[];
+interface ResumeData {
+    skills: Skill[];
+    hobbies: Hobby[];
+    location: Location[];
+    projects: Project[];
+    education: Education[];
+    socialLinks: SocialLinks[];
+    achievements: Achievement[];
+    personalInfo: PersonalInfo[];
+    workExperience: WorkExperience[];
 }
-
-export interface ArraySection extends BaseSection {
-    type: 'array';
-    fields: FormField[];
-}
-
-type Section = FieldsSection | ArraySection;
-
-export interface ParsedData {
-    personalInfo: ResumeSection;
-    location: ResumeSection;
-    socialLinks: ResumeSection;
-    workExperience: ResumeSection;
-    education: ResumeSection;
-    skills: ResumeSection;
-    achievements: ResumeSection;
-    projects: ResumeSection;
-    hobbies: ResumeSection;
-    [key: string]: ResumeSection;
-}
-
-// --- MISC PAGE PROPS ---
-
-export interface PageProps {
+export interface PageProps extends AppPageProps {
     [key: string]: unknown;
+    portfolio?: ResumeData;
     flash?: {
         success?: string;
-        parsed_data?: ParsedData;
+        parsed_data?: Partial<ResumeData>;
     };
 }
 

@@ -9,14 +9,14 @@ import {
 } from '@/components/ui/card'
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'vue-toastification';
-import { schemaMigration } from '@/helpers';
 import { usePage } from '@inertiajs/vue3';
 import {computed} from 'vue'
 // const toast = useToast();
 // const { t } = useI18n();
 const page = usePage<PageProps>();
 
-const data = computed(() => schemaMigration(page.props.resume));
+const data = computed(() => (page.props.resume));
+console.log(data.value);
 </script>
 
 <template>

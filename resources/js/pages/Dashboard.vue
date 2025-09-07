@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index,  resumes as dashboardResumes, resume as dashboardResume } from '@/routes/dashboard';
-import { type BreadcrumbItem, type PageProps } from '@/types/index';
+import type { BreadcrumbItem , PageProps , ResumeData } from '@/types/index';
 import { Head, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import ImportResume from './ImportResume.vue';
 import CreateResume from './CreateResume.vue';
 import ResumeForm from './ResumeForm.vue';
 import Resumes from './Resumes.vue';
-import { schemaMigration } from '@/helpers';
 
 
 // todo: Google & Linked & github sign in/up
@@ -29,11 +28,10 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
         href: index().url,
     }];
 
-    // If the current URL matches the resume page URL, add the second breadcrumb
     if (page.url === dashboardResume().url) {
         base.push({
             title: 'Resume Form',
-            href: dashboardResume().url, // Correctly points to the resume page
+            href: dashboardResume().url,
         });
     }
     if (page.url === dashboardResumes().url) {
@@ -48,7 +46,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
 
 
 const successMessage = computed(() => page.props.flash?.success);
-const parsedData = computed(() => page.props.flash?.parsed_data ?? schemaMigration(page.props.resume));
+const resumeData = computed(() => page.props.flash?.parsed_data as ResumeData);
 </script>
 
 <template>
@@ -66,9 +64,9 @@ const parsedData = computed(() => page.props.flash?.parsed_data ?? schemaMigrati
                         <Resumes />
                     </div>
                     <ResumeForm
-                    v-else-if="parsedData && successMessage && page.url === dashboardResume().url"
-                        :successMessage="successMessage"
-                        :parsedData="parsedData"
+                        v-else-if="page.url === dashboardResume().url"
+                        :success-message="successMessage"
+                        :resume-data="resumeData"
                         key="form-view"
                         />
                 </Transition>

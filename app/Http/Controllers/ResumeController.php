@@ -10,24 +10,28 @@ use Illuminate\Http\Request;
 class ResumeController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Display the user's resume data.
      *
-     * @return void
+     * @return \Inertia\Response
      */
-
     public function show()
     {
-        $resume = Resume::where('user_id', Auth::id())->first();
+        $resume = Resume::where('user_id', Auth::id())->get();
 
         return Inertia::render('Dashboard', [
-            'resume' => $resume ? $resume->data : null
+            'resume' => $resume ? $resume : null
         ]);
     }
 
+    /**
+     * Store or update the user's resume data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $resumeData = $request->all();
-
         $cleanData = [];
 
         foreach ($resumeData as $sectionKey => $sectionData) {
@@ -36,14 +40,12 @@ class ResumeController extends Controller
             }
 
             $sectionValues = [];
-
             foreach ($sectionData['fields'] as $fieldGroup) {
                 $groupValues = [];
                 foreach ($fieldGroup as $fieldName => $fieldDetails) {
                     $groupValues[$fieldName] = $fieldDetails['value'] ?? null;
                 }
-
-                    $sectionValues[] = $groupValues;
+                $sectionValues[] = $groupValues;
             }
             $cleanData[$sectionKey] = $sectionValues;
         }
