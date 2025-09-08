@@ -18,8 +18,6 @@ Route::get('/language/{locale}', function ($locale) {
     return redirect()->back();
 })->whereIn('locale', ['en', 'de'])->name('language.switch');
 
-
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [ResumeController::class, 'dashboard'])->name('dashboard');
     Route::prefix('dashboard')->group(function () {
@@ -31,12 +29,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-Route::domain('{subdomain}.resumetowebsite.masri.blog')->group(function () {
-    Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
-});
-Route::domain('{subdomain}.resumetowebsite.test')->group(function () {
-    Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
-});
+// Route::domain('{subdomain}.resumetowebsite.masri.blog')->group(function () {
+//     Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
+// });
+// Route::domain('{subdomain}.resumetowebsite.test')->group(function () {
+//     Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
+// });
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/settings.php';

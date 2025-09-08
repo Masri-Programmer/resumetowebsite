@@ -3,6 +3,17 @@
     <div class="flex flex-shrink-0 items-center space-x-1">
       <Tooltip>
         <TooltipTrigger as-child>
+            <Button @click="publishResume(id as number)" variant="ghost" size="icon" class="h-8 w-8">
+              <Globe class="h-4 w-4" />
+            </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Publish Resume</p>
+        </TooltipContent>
+      </Tooltip>
+
+      <Tooltip>
+        <TooltipTrigger as-child>
           <Link :href="show.url(id as number)">
             <Button variant="ghost" size="icon" class="h-8 w-8">
               <ExternalLink class="h-4 w-4" />
@@ -44,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { ExternalLink, Pencil, Trash2 } from 'lucide-vue-next';
+import { ExternalLink, Pencil, Trash2, Globe } from 'lucide-vue-next';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { destroy, edit, show } from '@/routes/resumes';
 import { Button } from '@/components/ui/button';
@@ -57,6 +68,10 @@ defineProps({
 
 const confirmDelete = () => {
     return window.confirm('Are you sure you want to delete this resume?');
+};
+
+const publishResume = (id : number) => {
+ return alert(id+ ' publish feature not implemented yet');
 };
 </script>
 

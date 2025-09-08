@@ -6,7 +6,7 @@ import { dashboard } from '@/routes';
 import { create,  index } from '@/routes/resumes';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-
+import SocialLinks from '@/components/SocialLinks.vue';
 import { computed } from 'vue';
 import ActionBar from '@/components/bars/ActionBar.vue';
 
@@ -34,7 +34,6 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
         },
     ];
 });
-
 </script>
 
 <template>
@@ -62,9 +61,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
                                 <CardDescription>Personal information not available.</CardDescription>
                             </div>
                         </div>
-                        <!-- <div class="flex flex-shrink-0 items-center space-x-1"> -->
                             <ActionBar :id="resume.id" />
-                        <!-- </div> -->
                     </div>
                 </CardHeader>
 
@@ -138,52 +135,8 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
                     </div>
                 </CardContent>
 
-                <CardFooter v-if="resume.data.socialLinks" class="bg-muted/50 p-4">
-                    <div class="mx-auto text-center text-sm text-muted-foreground">
-                        <p>Your Signature Here &copy; {{ new Date().getFullYear() }}</p>
-                    </div>
-                    <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-                        <a
-                            v-if="resume.data.socialLinks[0].github"
-                            :href="resume.data.socialLinks[0].github"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-indigo-500 hover:underline dark:text-indigo-400"
-                            >GitHub</a
-                        >
-                        <a
-                            v-if="resume.data.socialLinks[0].linkedin"
-                            :href="resume.data.socialLinks[0].linkedin"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-indigo-500 hover:underline dark:text-indigo-400"
-                            >LinkedIn</a
-                        >
-                        <a
-                            v-if="resume.data.socialLinks[0].twitter"
-                            :href="resume.data.socialLinks[0].twitter"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-indigo-500 hover:underline dark:text-indigo-400"
-                            >Twitter</a
-                        >
-                        <a
-                            v-if="resume.data.socialLinks[0].instagram"
-                            :href="resume.data.socialLinks[0].instagram"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-indigo-500 hover:underline dark:text-indigo-400"
-                            >Instagram</a
-                        >
-                        <a
-                            v-if="resume.data.socialLinks[0].other"
-                            :href="resume.data.socialLinks[0].other"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-indigo-500 hover:underline dark:text-indigo-400"
-                            >Other</a
-                        >
-                    </div>
+                <CardFooter v-if="resume.data.socialLinks">
+                          <SocialLinks :links="resume.data.socialLinks" />
                 </CardFooter>
             </Card>
         </div>
