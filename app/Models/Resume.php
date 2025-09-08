@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Support\Str;
 /**
  * @property int $id
  * @property int $user_id
@@ -27,27 +27,33 @@ class Resume extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'user_id',
         'data',
     ];
 
-    /**
-     * The attributes that should be cast.
-     * This tells Laravel to automatically handle JSON encoding/decoding.
-     */
     protected $casts = [
         'data' => 'array',
     ];
 
-    /**
-     * Get the user that owns the resume.
-     */
+    protected static function booted(): void
+    {
+        static::creating(function ($resume) {
+            $firstName = $resume->data['personalInfo'][0]['firstName'] ?? '';
+            $lastName = $resume->data['personalInfo'][0]['lastName'] ?? '';
+
+            $name = trim("$firstName $lastName") ?: 'resume';
+
+            $resume->slug = Str::slug($name) . '-' . uniqid();
+        });
+    }
+   
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

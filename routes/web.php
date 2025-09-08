@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PublicResumeController;
 use App\Http\Controllers\ResumeController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -28,6 +29,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::inertia('/language', 'settings/Language')->name('language');
     });
+});
+
+Route::domain('{subdomain}.resumetowebsite.masri.blog')->group(function () {
+    Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
+});
+Route::domain('{subdomain}.resumetowebsite.test')->group(function () {
+    Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
 });
 
 require __DIR__ . '/auth.php';

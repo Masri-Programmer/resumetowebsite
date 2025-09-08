@@ -3,11 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
-import { create, destroy, edit, index, show } from '@/routes/resumes';
+import { create,  index } from '@/routes/resumes';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { ExternalLink, Pencil, Trash2 } from 'lucide-vue-next';
+
 import { computed } from 'vue';
+import ActionBar from '@/components/bars/ActionBar.vue';
 
 const props = defineProps({
     parsed_data: Object,
@@ -33,9 +34,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
         },
     ];
 });
-const confirmDelete = () => {
-    return window.confirm('Are you sure you want to delete this resume?');
-};
+
 </script>
 
 <template>
@@ -63,25 +62,9 @@ const confirmDelete = () => {
                                 <CardDescription>Personal information not available.</CardDescription>
                             </div>
                         </div>
-
-                        <div class="flex flex-shrink-0 items-center space-x-1">
-                            <Link :href="show.url(resume.id)">
-                                <Button variant="ghost" size="icon" class="h-8 w-8">
-                                    <ExternalLink class="h-4 w-4" />
-                                </Button>
-                            </Link>
-
-                            <Link :href="edit.url(resume.id)">
-                                <Button variant="ghost" size="icon" class="h-8 w-8">
-                                    <Pencil class="h-4 w-4" />
-                                </Button>
-                            </Link>
-                            <Link :href="destroy.url(resume.id)" method="delete" as="button" :onBefore="confirmDelete" preserve-scroll>
-                                <Button variant="ghost" size="icon" class="h-8 w-8 text-red-500 hover:text-red-600">
-                                    <Trash2 class="h-4 w-4" />
-                                </Button>
-                            </Link>
-                        </div>
+                        <!-- <div class="flex flex-shrink-0 items-center space-x-1"> -->
+                            <ActionBar :id="resume.id" />
+                        <!-- </div> -->
                     </div>
                 </CardHeader>
 

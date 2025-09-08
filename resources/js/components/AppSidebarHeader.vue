@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItemType } from '@/types';
-import { router } from '@inertiajs/vue3';
 
 withDefaults(
     defineProps<{
