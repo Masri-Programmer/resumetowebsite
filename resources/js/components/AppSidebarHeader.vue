@@ -4,7 +4,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItemType } from '@/types';
 import LanguageSwitch from './LanguageSwitch.vue';
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
-import { useI18n } from 'vue-i18n';
+// import { useI18n } from 'vue-i18n';
 import AppearanceIcon from './AppearanceIcon.vue';
 
 withDefaults(
