@@ -1,155 +1,89 @@
 <script setup lang="ts">
-import { schema } from '@/helpers';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { dashboard } from '@/routes';
-import { create , store} from '@/routes/resumes';
-import type { BreadcrumbItem, ResumeData as ResumeDataTypes, Schema , PageProps} from '@/types';
-import { Head, useForm, usePage } from '@inertiajs/vue3';
-import { Trash2 } from 'lucide-vue-next';
-import { computed } from 'vue';
-import { useToast } from 'vue-toastification';
-// ShadCN Vue Components, defineProps, PropType 
+import { edit, store } from '@/routes/resumes';
+import { Plus } from "lucide-vue-next"
+import { useI18n } from 'vue-i18n';
+import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { router, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { useToast } from 'vue-toastification';
+import type { Page } from '@inertiajs/core';
 
-const props = defineProps({
-  parsed_data: Object,
-});
-
-const page = usePage<PageProps>();
+const isDialogOpen = ref(false);
 const toast = useToast();
+const { t } = useI18n();
 
-const resumeData = computed(() => props?.parsed_data as ResumeDataTypes);
-const form = useForm<ResumeDataTypes>(
-    resumeData.value && Object.keys(resumeData.value).length > 0 ? resumeData.value : (page.props.portfolio as ResumeDataTypes),
-);
-const typedSchema = schema as Schema;
-
-const addSection = (sectionKey: keyof ResumeDataTypes) => {
-    const fieldTemplate = typedSchema[sectionKey].fields[0];
-    const newEmptyItem: { [key: string]: string | null } = {};
-
-    for (const fieldName in fieldTemplate) {
-        if (Object.prototype.hasOwnProperty.call(fieldTemplate, fieldName)) {
-            newEmptyItem[fieldName] = '';
-        }
-    }
-
-    form[sectionKey].push(newEmptyItem as never);
-};
-
-const removeSection = (sectionKey: keyof ResumeDataTypes, index: number) => {
-    if (form[sectionKey]?.length > 1) {
-        form[sectionKey].splice(index, 1);
-    }
-};
+const form = useForm({
+    title: null as string | null,
+});
 
 const submit = () => {
     form.post(store.url(), {
-        onSuccess: () => {
-            const message = 'Successfully Saved';
-            toast.success(message);
+        preserveScroll: true,
+        onSuccess: (page: Page) => {
+            const id = page.props.parsed_data.id;
+            isDialogOpen.value = false;
+            form.reset();
+             router.visit(edit.url(id), {
+                preserveState: true,
+            });
         },
         onError: (errors) => {
-            if (errors.data) {
-                toast.error(errors.data);
+            if (Object.keys(errors).length > 0) {
+                for (const key in errors) {
+                    toast.error(errors[key]);
+                }
             } else {
-                toast.error('Error Occured');
+                toast.error('An unexpected error occurred.');
             }
         },
     });
 };
-
-const breadcrumbs = computed<BreadcrumbItem[]>(() => {
-    const base = [
-        {
-            title: 'Dashboard',
-            href: dashboard().url,
-        },
-        {
-            title: 'Resume Form',
-            href: create().url,
-        },
-    ];
-
-    return base;
-});
 </script>
 
 <template>
-    <Head title="Resume Create" />
-
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <form v-if="form" @submit.prevent="submit" class="w-full">
-            <div class="space-y-6">
-                <Card v-for="(section, sectionKey) in typedSchema" :key="sectionKey">
-                    <template v-if="form[sectionKey as keyof ResumeDataTypes]">
-                        <CardHeader>
-                            <CardTitle>{{ section.title }}</CardTitle>
-                            <CardDescription>{{ section.description }}</CardDescription>
-                        </CardHeader>
-                        <CardContent class="space-y-4">
-                            <div class="space-y-6">
-                                <div
-                                    v-for="(dataItem, index) in form[sectionKey as keyof ResumeDataTypes]"
-                                    :key="index"
-                                    class="relative grid grid-cols-1 gap-x-6 gap-y-4 rounded-lg border p-6 sm:grid-cols-2"
-                                >
-                                    <Button
-                                        v-if="section.actions?.remove && form[sectionKey as keyof ResumeDataTypes].length > 1"
-                                        variant="destructive"
-                                        size="icon"
-                                        class="absolute top-2 right-2 h-7 w-7"
-                                        @click="removeSection(sectionKey as keyof ResumeDataTypes, index)"
-                                    >
-                                        <Trash2 class="h-4 w-4" />
-                                    </Button>
-
-                                    <div v-for="(fieldDetails, fieldName) in section.fields[0]" :key="fieldName" :class="'space-y-2'">
-                                        <Label :for="`${String(fieldName)}-${index}`"
-                                            >{{ (fieldDetails.label as string).charAt(0).toUpperCase() + (fieldDetails.label as string).slice(1)
-                                            }}{{ fieldDetails.rules.required ? '*' : '' }}</Label
-                                        >
-                                        <Textarea
-                                            v-if="fieldDetails.component === 'textarea'"
-                                            :id="`${String(fieldName)}-${index}`"
-                                            v-model="dataItem[fieldName as keyof typeof dataItem]"
-                                            :required="fieldDetails.rules.required"
-                                            :placeholder="fieldDetails.placeholder"
-                                            class="min-h-[120px]"
-                                        />
-                                        <Input
-                                            v-else
-                                            :id="`${String(fieldName)}-${index}`"
-                                            v-model="dataItem[fieldName as keyof typeof dataItem]"
-                                            :required="fieldDetails.rules.required"
-                                            :type="fieldDetails.type"
-                                            :placeholder="fieldDetails.placeholder"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                            <Button
-                                v-if="section.actions?.add"
-                                type="button"
-                                variant="outline"
-                                @click="addSection(sectionKey as keyof ResumeDataTypes)"
-                            >
-                                Add {{ section.title }}
-                            </Button>
-                        </CardFooter>
-                    </template>
-                </Card>
-
-                <div class="fixed right-0 bottom-0 mx-12 my-18">
-                    <Button type="submit" :disabled="form.processing">Save Resume</Button>
+    <Dialog :open="isDialogOpen" @update:open="isDialogOpen = $event">
+        <DialogTrigger as-child>
+            <Button variant="outline" class="h-auto w-full border-0 p-0">
+                <div class="card-glow group relative flex aspect-[4/5] w-full cursor-pointer flex-col justify-center overflow-hidden rounded-2xl border border-gray-900">
+                    <PlaceholderPattern />
+                    <div class="flex flex-1 items-center justify-center">
+                        <Plus
+                            class="!h-20 !w-20 text-gray-700 transition-colors duration-300 group-hover:text-gray-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1"
+                            stroke="currentColor"
+                        />
+                    </div>
+                    <div class="p-8 text-left">
+                        <h2 class="text-lg font-semibold text-gray-700">{{ t('resume.createTitle') }}</h2>
+                        <p class="mt-1 text-sm text-gray-500 text-wrap">{{ t('resume.createDescription') }}</p>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </AppLayout>
+            </Button>
+        </DialogTrigger>
+
+        <DialogContent class="sm:max-w-md">
+            <form @submit.prevent="submit">
+                <div class="grid gap-6 py-4">
+                    <div class="grid items-center gap-2">
+                        <Label for="title">Title</Label>
+                      <Input id="title" type="text" v-model="form.title as string" required />
+                        <p v-if="form.errors.title" class="text-sm text-red-500">{{ form.errors.title }}</p>
+                    </div>
+                </div>
+
+                <DialogFooter>
+                    <Button type="button" variant="secondary" @click="isDialogOpen = false">{{ t('resume.cancel') }}</Button>
+                    <Button type="submit" :disabled="form.processing">
+                        {{ form.processing ? 'Creating...' : 'Create' }}
+                    </Button>
+                </DialogFooter>
+            </form>
+        </DialogContent>
+    </Dialog>
 </template>

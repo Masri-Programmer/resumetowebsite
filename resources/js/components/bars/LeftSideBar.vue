@@ -1,26 +1,32 @@
-<template>
-  <Sidebar>
-    <SidebarContent>
-      <SidebarGroup>
-        <SidebarGroupLabel>Application</SidebarGroupLabel>
-        <SidebarGroupAction>
-          <Plus /> <span class="sr-only">Add Project</span>
-        </SidebarGroupAction>
-        <SidebarGroupContent></SidebarGroupContent>
-      </SidebarGroup>
-    </SidebarContent>
-  </Sidebar>
-</template>
-
 <script setup lang="ts">
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarGroupAction,
-} from '@/components/ui/sidebar'
+    ResizableHandle,
+    ResizablePanel,
+    ResizablePanelGroup,
+} from '@/components/ui/resizable'
+import { Sidebar, SidebarContent } from '@/components/ui/sidebar';
 </script>
-<style scoped>
 
-</style>
+<template>
+    <ResizablePanelGroup direction="horizontal" class="min-h-screen w-full">
+        <ResizablePanel :default-size="20" :min-size="15" :max-size="30">
+            <!-- 
+                This sidebar is designed for a detail/show page.
+                It's simpler than the main AppSidebar, focusing on in-page navigation.
+            -->
+            <Sidebar variant="inset" class="h-full">
+                <SidebarContent>
+                  sadsada
+                    <!-- <NavMain :items="showPageNavItems" /> -->
+                </SidebarContent>
+            </Sidebar>
+        </ResizablePanel>
+        <ResizableHandle with-handle />
+        <ResizablePanel :default-size="80">
+            <div class="p-6">
+                <slot />
+            </div>
+        </ResizablePanel>
+    </ResizablePanelGroup>
+</template>
+

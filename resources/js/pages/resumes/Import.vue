@@ -33,11 +33,13 @@ const submit = () => {
                 preserveState: true,
             });
         },
-        onError: (errors) => {
-            if (errors.resumeFile) {
-                toast.error(errors.resumeFile);
+       onError: (errors) => {
+            if (Object.keys(errors).length > 0) {
+                for (const key in errors) {
+                    toast.error(errors[key]);
+                }
             } else {
-                toast.error(t('errors.unknownImportError'));
+                toast.error('An unexpected error occurred.');
             }
         },
     });

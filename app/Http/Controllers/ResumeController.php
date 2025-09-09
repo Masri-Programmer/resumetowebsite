@@ -32,13 +32,21 @@ class ResumeController extends Controller
 
     public function create()
     {
-        return Inertia::render('resumes/Create');
+        $resumes = Auth::user()->resumes()->orderBy('created_at', 'desc')->get();
+        return Inertia::render('Dashboard', ['parsed_data' => $resumes]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        Auth::user()->resumes()->create(['data' => $request->all()]);
-        return redirect()->route('resumes.index')->with('success', 'Resume created successfully!');
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+        ]);
+
+        $resume =  Auth::user()->resumes()->create([
+            'title' => $validated['title'],
+            'data'  => $request->except('title'),
+        ]);
+        return Inertia::render('resumes/Edit', ['parsed_data' => $resume]);
     }
 
     public function show(Resume $resume)
@@ -65,7 +73,8 @@ class ResumeController extends Controller
             abort(403);
         }
         $resume->update(['data' => $request->all()]);
-        return;
+        $resumes = Auth::user()->resumes()->orderBy('created_at', 'desc')->get();
+        return Inertia::render('resumes/Index', ['parsed_data' => $resumes]);
     }
 
     public function destroy(Resume $resume): RedirectResponse

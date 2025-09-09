@@ -29,6 +29,7 @@ class Resume extends Model
 
     protected $fillable = [
         'user_id',
+        'title',
         'data',
         'file'
     ];
@@ -40,10 +41,10 @@ class Resume extends Model
     protected static function booted(): void
     {
         static::creating(function ($resume) {
-            $firstName = $resume->data['personalInfo'][0]['firstName'] ?? '';
+            // $firstName = $resume->data['personalInfo'][0]['firstName'] ?? '';
             $lastName = $resume->data['personalInfo'][0]['lastName'] ?? '';
 
-            $name = trim("$firstName $lastName") ?: 'resume';
+            $name = trim("$lastName") ?: 'resume';
 
             $resume->slug = Str::slug($name) . '-' . uniqid();
         });
@@ -53,8 +54,8 @@ class Resume extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
+    // public function getRouteKeyName(): string
+    // {
+    //     return 'slug';
+    // }
 }

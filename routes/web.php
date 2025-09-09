@@ -1,12 +1,18 @@
 <?php
 
-use App\Http\Controllers\PublicResumeController;
 use App\Http\Controllers\ResumeController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
+
+// Route::domain('{subdomain}.resumetowebsite.masri.blog')->group(function () {
+//     Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
+// });
+// Route::domain('{subdomain}.resumetowebsite.test')->group(function () {
+//     Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
+// });
 */
 
 Route::inertia('/', 'Welcome')->name('home');
@@ -29,12 +35,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-// Route::domain('{subdomain}.resumetowebsite.masri.blog')->group(function () {
-//     Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
-// });
-// Route::domain('{subdomain}.resumetowebsite.test')->group(function () {
-//     Route::get('/', [PublicResumeController::class, 'show'])->name('resume.public.show');
-// });
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/settings.php';

@@ -5,7 +5,7 @@ import type { BreadcrumbItem} from '@/types/index';
 import { Head,}  from '@inertiajs/vue3';
 import { computed } from 'vue';
 import Import from './resumes/Import.vue';
-import CreateCard from './resumes/CeateCard.vue';
+import Create from './resumes/Create.vue';
 
 
 // todo: Google & Linked & github sign in/up
@@ -40,7 +40,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
             <div class="relative w-full max-w-5xl">
                     <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
                         <Import />
-                        <CreateCard />
+                        <Create />
                     </div>
                     </div>
                     </div>
