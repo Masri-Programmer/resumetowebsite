@@ -3,9 +3,9 @@
     <div class="flex flex-shrink-0 items-center space-x-1">
       <Tooltip>
         <TooltipTrigger as-child>
-            <Button @click="publishResume(id as number)" variant="ghost" size="icon" class="h-8 w-8">
-              <Globe class="h-4 w-4" />
-            </Button>
+          <Button @click="publishResume(id as number)" variant="ghost" size="icon" class="h-8 w-8">
+            <Globe class="h-4 w-4" />
+          </Button>
         </TooltipTrigger>
         <TooltipContent>
           <p>Publish Resume</p>
@@ -14,7 +14,7 @@
 
       <Tooltip>
         <TooltipTrigger as-child>
-          <Link :href="show.url(id as number)">
+          <Link :href="show.url((id as number).toString())">
             <Button variant="ghost" size="icon" class="h-8 w-8">
               <ExternalLink class="h-4 w-4" />
             </Button>
@@ -27,7 +27,7 @@
 
       <Tooltip>
         <TooltipTrigger as-child>
-          <Link :href="edit.url(id as number)">
+          <Link :href="edit.url((id as number).toString())">
             <Button variant="ghost" size="icon" class="h-8 w-8">
               <Pencil class="h-4 w-4" />
             </Button>
@@ -40,7 +40,7 @@
 
       <Tooltip>
         <TooltipTrigger as-child>
-          <Link :href="destroy.url(id as number)" method="delete" as="button" :onBefore="confirmDelete" preserve-scroll>
+          <Link :href="destroy.url((id as number).toString())" method="delete" as="button" :onBefore="confirmDelete" preserve-scroll>
             <Button variant="ghost" size="icon" class="h-8 w-8 text-red-500 hover:text-red-600">
               <Trash2 class="h-4 w-4" />
             </Button>
@@ -74,7 +74,3 @@ const publishResume = (id : number) => {
  return alert(id+ ' publish feature not implemented yet');
 };
 </script>
-
-<style scoped>
-
-</style>
