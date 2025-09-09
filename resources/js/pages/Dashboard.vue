@@ -12,7 +12,7 @@ import CreateCard from './resumes/CeateCard.vue';
 // todo: Check Dark & Light
 // todo: Check Trans
 // todo: Cookies Policy
-// todo: Rjesume host
+// todo: Resume host
 // todo: resume host
 // todo: User Suggestions for fields (hobbies , language, stars or drag line....)
 // todo: fonts and colors
