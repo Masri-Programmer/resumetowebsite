@@ -30,6 +30,7 @@ class Resume extends Model
     protected $fillable = [
         'user_id',
         'data',
+        'file'
     ];
 
     protected $casts = [

@@ -70,17 +70,22 @@
                 </ul>
             </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
-                <section id="projects" class="mb-6" v-if="parsed_data.data.projects.length">
-                    <h2 class="text-xl font-bold mb-3 title-font border-b pb-2">Projects</h2>
-                    <ul class="list-disc ml-5 text-sm space-y-1">
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <section id="projects" class="mt-3 mb-4 md:mb-6" v-if="parsed_data.data.projects.length">
+                    <h2 class="mb-2 text-xl font-semibold">Projects</h2>
+                    <ul class="ml-5 list-disc space-y-1 text-sm">
                         <li v-for="(project, index) in parsed_data.data.projects" :key="index">
                             {{ project.project }}
                         </li>
                     </ul>
-                    <p class="text-sm mt-2">
-                        <span>For a detailed overview, visit my portfolio:</span>
-                        <a target="_blank" :href="parsed_data.data.personalInfo[0].website" class="text-blue-600 hover:underline dark:text-blue-400" aria-label="View all projects (opens in a new tab)">
+                    <p class="mt-2 text-sm">
+                        <span>For a detailed overview, please visit my portfolio:</span>
+                        <a
+                            target="_blank"
+                            :href="parsed_data.data.personalInfo[0].website"
+                            class="text-blue-500 underline hover:text-blue-600 dark:text-blue-300 dark:hover:text-blue-400"
+                            aria-label="View all projects (opens in a new tab)"
+                        >
                             {{ parsed_data.data.personalInfo[0].website }}
                         </a>
                     </p>
@@ -115,20 +120,19 @@
                 </section>
             </div>
         </main>
-
-        <footer class="resume-footer text-center text-xs text-muted-foreground mt-4">
+ 
+        <footer class="resume-footer text-center text-xs text-gray-600 dark:text-gray-400">
             <div class="print-signature">
-                <a :href="parsed_data.data.personalInfo[0].website" target="_blank" rel="noopener noreferrer">{{ parsed_data.data.personalInfo[0].website }}</a>
+                <a :href="parsed_data.data.personalInfo[0].website" target="_blank" rel="noopener noreferrer">{{
+                    parsed_data.data.personalInfo[0].website
+                }}</a>
             </div>
         </footer>
-
-        <Rightbar />
-    </div>
-    <div v-else class="flex items-center justify-center min-h-screen">
-        <p>Loading data...</p>
-    </div>
-    <LeftSideBar />
+  <Rightbar />
+   <LeftSideBar />
     <BottomBar />
+    </div>
+    <div v-else class="p-10 text-center">Loading data...</div>
 </template>
 
 <script setup lang="ts">

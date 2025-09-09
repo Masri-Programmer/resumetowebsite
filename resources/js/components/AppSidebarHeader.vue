@@ -1,6 +1,11 @@
 <script setup lang="ts">
+
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItemType } from '@/types';
+import LanguageSwitch from './LanguageSwitch.vue';
+import Breadcrumbs from '@/components/Breadcrumbs.vue';
+// import { useI18n } from 'vue-i18n';
+import AppearanceIcon from './AppearanceIcon.vue';
 
 withDefaults(
     defineProps<{
@@ -21,6 +26,11 @@ withDefaults(
             <template v-if="breadcrumbs && breadcrumbs.length > 0">
                 <Breadcrumbs :breadcrumbs="breadcrumbs" />
             </template>
+        </div>
+
+        <div class="ml-auto">
+          <LanguageSwitch />
+          <AppearanceIcon />
         </div>
     </header>
 </template>
