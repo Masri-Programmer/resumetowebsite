@@ -27,19 +27,17 @@ const faqs = shallowRef([
 </script>
 
 <template>
-  <section id="Faq" class="w-full py-12 sm:py-16 md:py-20">
-       <div class="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+       <section id="Faq" class="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 items-center gap-x-16 gap-y-10 lg:grid-cols-2">
         <div class="space-y-4 text-left">
-          <h2 class="text-3xl font-bold tracking-tighter text-secondary sm:text-5xl">Frequently Asked Questions</h2>
+          <h4 class="text-3xl font-bold tracking-tighter sm:text-5xl text-foreground">Frequently Asked Questions</h4>
           <p class="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
             Have questions? We've got answers. Here are some of the most common things people ask.
           </p>
         </div>
 
         <!-- Right Column: Accordion -->
-        <div class="text-secondary">
-          <Accordion type="single" collapsible class="w-full">
+          <Accordion type="single" collapsible class="w-full text-foreground">
             <AccordionItem v-for="(faq, index) in faqs" :key="index" :value="`item-${index}`">
               <AccordionTrigger>{{ faq.question }}</AccordionTrigger>
               <AccordionContent>
@@ -47,9 +45,7 @@ const faqs = shallowRef([
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        </div>
       </div>
-    </div>
   </section>
 </template>
 

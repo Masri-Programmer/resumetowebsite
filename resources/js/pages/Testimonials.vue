@@ -28,10 +28,9 @@ const testimonials = shallowRef([
 </script>
 
 <template>
-  <section id="Testimonials" class="w-full py-12 md:py-24 lg:py-32">
-    <div class="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <section id="Testimonials" class="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div class="flex flex-col items-center text-center">
-        <h1 class="text-4xl font-semibold leading-none">What our customers are saying about us</h1>
+        <h3 class="text-3xl font-bold tracking-tighter sm:text-5xl text-foreground">What our customers are saying about us</h3>
       </div>
       <div class="mx-auto mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         <div v-for="testimonial in testimonials" :key="testimonial.handle" class="rounded p-6 shadow-md ">
@@ -49,7 +48,7 @@ const testimonials = shallowRef([
               <path d="M232,246.857V16H16V416H54.4ZM48,48H200V233.143L48,377.905Z" />
               <path d="M280,416h38.4L496,246.857V16H280ZM312,48H464V233.143L312,377.905Z" />
             </svg>
-            <blockquote class="px-12 py-1 text-base italic">{{ testimonial.text }} - {{ testimonial.name }}</blockquote>
+            <blockquote class="px-12 py-1 text-base italic text-muted-foreground">{{ testimonial.text }} - {{ testimonial.name }}</blockquote>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
@@ -62,6 +61,5 @@ const testimonials = shallowRef([
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 </template>
