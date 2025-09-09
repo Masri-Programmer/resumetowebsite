@@ -34,7 +34,7 @@ const testimonials = shallowRef([
         <h1 class="text-4xl font-semibold leading-none">What our customers are saying about us</h1>
       </div>
       <div class="mx-auto mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <div v-for="testimonial in testimonials" :key="testimonial.handle" class="rounded p-6 shadow-md dark:bg-gray-800">
+        <div v-for="testimonial in testimonials" :key="testimonial.handle" class="rounded p-6 shadow-md ">
           <div class="flex items-center space-x-4">
             <div>
               </div>
@@ -44,7 +44,7 @@ const testimonials = shallowRef([
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
               fill="currentColor"
-              class="absolute left-0 top-0 h-8 w-8 dark:text-gray-300"
+              class="absolute left-0 top-0 h-8 w-8"
             >
               <path d="M232,246.857V16H16V416H54.4ZM48,48H200V233.143L48,377.905Z" />
               <path d="M280,416h38.4L496,246.857V16H280ZM312,48H464V233.143L312,377.905Z" />
@@ -54,7 +54,7 @@ const testimonials = shallowRef([
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
               fill="currentColor"
-              class="absolute bottom-0 right-0 h-8 w-8 dark:text-gray-300"
+              class="absolute bottom-0 right-0 h-8 w-8"
             >
               <path d="M280,185.143V416H496V16H457.6ZM464,384H312V198.857L464,54.1Z" />
               <path d="M232,16H193.6L16,185.143V416H232ZM200,384H48V198.857L200,54.1Z" />

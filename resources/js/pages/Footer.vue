@@ -26,7 +26,7 @@ const year = new Date().getFullYear();
 </script>
 
 <template>
-  <footer class="w-full border-t border-border bg-background">
+  <footer class="w-full border-t border-border bg-primary">
     <div class="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
         <div class="col-span-2 flex flex-col items-start gap-4 md:col-span-1">

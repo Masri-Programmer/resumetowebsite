@@ -56,7 +56,7 @@ const features = shallowRef([
 </script>
 
 <template>
-  <section id="Features" class="w-full bg-accent-foreground py-12 sm:py-16 md:py-20">
+  <section id="Features" class="w-full py-12 sm:py-16 md:py-20">
         <div class="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 items-center gap-x-16 gap-y-10 lg:grid-cols-2">
         <div class="space-y-4 text-left">
