@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Star } from 'lucide-vue-next';
+// import { Star } from 'lucide-vue-next';
 import { shallowRef } from 'vue';
 
 const testimonials = shallowRef([
@@ -7,21 +7,21 @@ const testimonials = shallowRef([
     name: 'Sarah Dayan',
     handle: '@sarah_dayan',
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=250&h=250&auto=format&fit=crop',
-    text: 'Reactive Resume has been a game-changer for my job applications. The templates are modern and professional, and the OpenAI integration for summaries is pure magic!',
+    text: 'This has been a game-changer for my job hunt. The modern templates and the OpenAI summary integration are pure magic. This tool has completely streamlined my application process.',
     rating: 5,
   },
   {
     name: 'Alex Johnson',
     handle: '@alex_dev',
     avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=250&h=250&auto=format&fit=crop',
-    text: "As a developer, I love that it's open-source and I can host it myself. The interface is clean, fast, and incredibly intuitive. Best resume builder I've ever used.",
+    text: "What I love most is that it's open-source. As a developer, self-hosting is a huge plus. The interface is incredibly intuitive, clean, and fast. Hands down, the best resume builder I've used.",
     rating: 5,
   },
   {
     name: 'Maria Garcia',
     handle: '@maria_designs',
     avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=250&h=250&auto=format&fit=crop',
-    text: 'The ability to manage multiple resumes and track views has been invaluable. It simplifies the whole process, from creation to sharing. Highly recommended!',
+    text: 'This tool has made managing my job search so much easier. Being able to create multiple resumes and track which ones get viewed is invaluable. Highly recommended for simplifying the whole process.',
     rating: 5,
   },
 ]);

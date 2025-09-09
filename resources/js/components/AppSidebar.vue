@@ -61,10 +61,10 @@ const footerNavItems: NavItem[] = [
             <!-- Licensed under MIT
 By the community, for the community.
 A passion project by Amruth Pillai
-Reactive Resume v4.4.6Licensed under MIT
+Resume to Website v4.4.6Licensed under MIT
 By the community, for the community.
 A passion project by Amruth Pillai
-Reactive Resume v4.4.6 -->
+Resume to Website v4.4.6 -->
         </SidebarFooter>
     </Sidebar>
     <slot />

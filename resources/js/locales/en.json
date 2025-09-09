@@ -4,7 +4,7 @@
         "importExistingTitle": "Import an existing resume",
         "createTitle": "Create a new resume",
         "createDescription": "Create a resume from scratch.",
-        "importExistingDescription": "Upload a file from one of the accepted sources to parse existing data and import it into Reactive Resume for easier editing.",
+        "importExistingDescription": "Upload a file from one of the accepted sources to parse existing data and import it into Resume to Website for easier editing.",
         "importTitle": "Import an existing resume",
         "fileLabel": "File",
         "validateButton": "Validate",

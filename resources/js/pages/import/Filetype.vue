@@ -16,7 +16,7 @@ const filetype = ref('json');
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="json">
-                        Reactive Resume (.json)
+                        Resume to Website (.json)
                     </SelectItem>
                 </SelectContent>
             </Select>
