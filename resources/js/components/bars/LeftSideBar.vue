@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import {
     ResizableHandle,
     ResizablePanel,
@@ -10,14 +10,9 @@ import { Sidebar, SidebarContent } from '@/components/ui/sidebar';
 <template>
     <ResizablePanelGroup direction="horizontal" class="min-h-screen w-full">
         <ResizablePanel :default-size="20" :min-size="15" :max-size="30">
-            <!-- 
-                This sidebar is designed for a detail/show page.
-                It's simpler than the main AppSidebar, focusing on in-page navigation.
-            -->
             <Sidebar variant="inset" class="h-full">
                 <SidebarContent>
-                  sadsada
-                    <!-- <NavMain :items="showPageNavItems" /> -->
+                  example
                 </SidebarContent>
             </Sidebar>
         </ResizablePanel>
@@ -29,4 +24,4 @@ import { Sidebar, SidebarContent } from '@/components/ui/sidebar';
         </ResizablePanel>
     </ResizablePanelGroup>
 </template>
-
+ -->
