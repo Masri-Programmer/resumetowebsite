@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
-import type { BreadcrumbItem} from '@/types/index';
-import { Head,}  from '@inertiajs/vue3';
+import type { BreadcrumbItem } from '@/types/index';
+import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import CreateCard from './resumes/CeateCard.vue';
 import Import from './resumes/Import.vue';
-import Create from './resumes/Create.vue';
-
 
 // todo: Google & Linked & github sign in/up
 // todo: Check Dark & Light
@@ -22,10 +21,12 @@ import Create from './resumes/Create.vue';
 // todo: Chat Session (Multi-Turn Conversations)
 
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
-    const base = [{
-        title: 'Dashboard',
-        href: dashboard().url,
-    }];
+    const base = [
+        {
+            title: 'Dashboard',
+            href: dashboard().url,
+        },
+    ];
 
     return base;
 });
@@ -35,16 +36,16 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-                <!-- <Transition name="slide-fade" mode="out-in"> -->
-                     <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+        <!-- <Transition name="slide-fade" mode="out-in"> -->
+        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="relative w-full max-w-5xl">
-                    <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
-                        <Import />
-                        <Create />
-                    </div>
-                    </div>
-                    </div>
-                <!-- </Transition> -->
+                <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
+                    <Import />
+                    <CreateCard />
+                </div>
+            </div>
+        </div>
+        <!-- </Transition> -->
     </AppLayout>
 </template>
 
@@ -57,20 +58,4 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     border-color: rgba(107, 114, 128, 0.5);
     box-shadow: 0 0 20px rgba(107, 114, 128, 0.1);
 }
-
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-    transition: all 0.4s ease-in-out;
-}
-
-.slide-fade-enter-from {
-    transform: translateX(30px);
-    opacity: 0;
-}
-
-.slide-fade-leave-to {
-    transform: translateX(-30px);
-    opacity: 0;
-}
 </style>
-
